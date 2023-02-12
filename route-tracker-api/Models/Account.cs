@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace route_tracker_api.Models;
 
@@ -8,16 +9,15 @@ namespace route_tracker_api.Models;
 
 public class Account
 {
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    private int Id { get; set; }
     
     /// <summary>
-    /// ObjectIdentifier is the Object identifier (ID) of the user object in Azure AD
+    /// Id is the Object identifier (ID) of the user object in Azure AD
     /// </summary>
-    public string ObjectIdentifier { get; set; }
+    [Key]
+    public string Id { get; set; }
 
     public Account(string objectIdentifier)
     {
-        ObjectIdentifier = objectIdentifier;
+        Id = objectIdentifier;
     }
 }
