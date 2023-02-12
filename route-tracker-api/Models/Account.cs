@@ -9,15 +9,10 @@ namespace route_tracker_api.Models;
 
 public class Account
 {
-    
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int Id { get; set; }
     /// <summary>
-    /// Id is the Object identifier (ID) of the user object in Azure AD
+    /// Object identifier (ID) of the user object in Azure AD
     /// </summary>
-    [Key]
-    public string Id { get; set; }
-
-    public Account(string objectIdentifier)
-    {
-        Id = objectIdentifier;
-    }
+    public string ObjectIdentifier { get; set; } = null!;
 }
