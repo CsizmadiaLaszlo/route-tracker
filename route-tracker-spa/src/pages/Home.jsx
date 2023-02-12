@@ -47,13 +47,13 @@ export const Home = () => {
             .catch((error) => console.log(error));
     };
 
-    useEffect(() => {
-        normalApiCall().then(setNormal);
-    }, [])
-
-    useEffect(() => {
-        authorizedApiCall(accessToken).then(setAuthorized);
-    }, [accessToken])
+    // useEffect(() => {
+    //     normalApiCall().then(setNormal);
+    // }, [])
+    //
+    // useEffect(() => {
+    //     authorizedApiCall(accessToken).then(setAuthorized);
+    // }, [accessToken])
 
 
 
@@ -62,14 +62,14 @@ export const Home = () => {
             <AuthenticatedTemplate>
                 {activeAccount ? (
                     <>
-                        <center>
-                            <h1>Public call</h1>
-                            <h2>Response: {normal}</h2>
-                        </center>
-                        <center>
-                            <h1>Secure call</h1>
-                            <h2>Response: {authorized}</h2>
-                        </center>
+                        {/*<center>*/}
+                        {/*    <h1>Public call</h1>*/}
+                        {/*    <h2>Response: {normal}</h2>*/}
+                        {/*</center>*/}
+                        {/*<center>*/}
+                        {/*    <h1>Secure call</h1>*/}
+                        {/*    <h2>Response: {authorized}</h2>*/}
+                        {/*</center>*/}
                         <>
                             {accessToken ?
                                 <center>
