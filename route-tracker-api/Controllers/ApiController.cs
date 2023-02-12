@@ -19,6 +19,10 @@ public class ApiController : ControllerBase
         _accountService = accountService;
     }
 
+    /// <summary>
+    /// Add new user to the database.
+    /// The primary key is the Object identifier (ID) of the user object in Azure AD.
+    /// </summary>
     [HttpPost]
     [Route("new-user")]
     public async Task<ActionResult> AddNewUser()
