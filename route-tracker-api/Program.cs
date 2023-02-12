@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using route_tracker_api.Data;
+using route_tracker_api.Services;
+using route_tracker_api.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +22,7 @@ builder.Services.AddDbContext<RouteTrackerApiContext>(options =>
                       throw new InvalidOperationException("Connection string not found!")));
 
 builder.Services.AddScoped<RouteTrackerApiContext, RouteTrackerApiContext>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
