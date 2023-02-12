@@ -2,4 +2,5 @@
 
 public interface IAccountService
 {
+    Task AddAccount(string oid);
 }
