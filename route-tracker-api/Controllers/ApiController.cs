@@ -32,9 +32,9 @@ public class ApiController : ControllerBase
         {
             await _accountService.AddAccount(objectId);
         }
-        catch (Exception e)
+        catch (InvalidOperationException e)
         {
-            return Conflict(e);
+            return Conflict($"{e.Message}");
         }
 
         return Ok();
