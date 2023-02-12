@@ -40,6 +40,11 @@ public class ApiController : ControllerBase
         return Ok();
     }
     
+    /// <summary>
+    /// Get the Object identifier from the current user claims.
+    /// </summary>
+    /// <returns></returns>
+
     private string GetOidForUser()
     {
         const string oidType = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier";
