@@ -20,11 +20,12 @@ public class AccountService : IAccountService
 
     public async Task AddAccount(string oid)
     {
-        if (_context.Accounts.FirstOrDefault(account => account.Id.Equals(oid)) != null)
+        if ((await _context.Accounts.FirstOrDefaultAsync(account => account.ObjectIdentifier == oid)) is not null)
         {
-            throw new Exception($"There is already an account with this OID: {oid}");
+            throw new InvalidOperationException($"There is already an account with OID: {oid}");
         }
-        await _context.Accounts.AddAsync(new Account(oid));
+
+        await _context.Accounts.AddAsync(new Account() { ObjectIdentifier = oid });
         await _context.SaveChangesAsync();
     }
 }
