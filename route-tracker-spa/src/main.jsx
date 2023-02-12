@@ -8,6 +8,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/index.css';
+import useFetchWithMsal from "./hooks/useFetchWithMsal.jsx";
 
 export const msalInstance = new PublicClientApplication(msalConfig);
 
@@ -26,12 +27,28 @@ msalInstance.addEventCallback((event) => {
         event.payload.account
     ) {
         msalInstance.setActiveAccount(event.payload.account);
-        console.log("Msal event callback NEW USER-------------------------------------------------------");
+        // console.log("Msal event callback NEW USER-------------------------------------------------------");
         const newUser = event.payload.idTokenClaims.newUser === true
-        console.log(newUser)
-        console.log("Msal event callback NEW USER-------------------------------------------------------");
-        const cache = msalInstance.getTokenCache();
-        console.log(cache)
+        if (true){
+            // useFetchWithMsal("POST", "new-user").then();
+
+            const headers = new Headers();
+            const bearer = `Bearer ${event.payload.accessToken}`;
+            headers.append("Authorization", bearer);
+
+            let options = {
+                method: "POST",
+                headers: headers,
+                // body: null,
+            };
+
+            fetch(`api/new-user`, options).then();
+        }
+        // console.log(newUser)
+        // console.log("Msal event callback NEW USER-------------------------------------------------------");
+        // const cache = msalInstance.getTokenCache();
+        // console.log(cache)
+
     }
 });
 
