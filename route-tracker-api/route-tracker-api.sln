@@ -1,6 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "route-tracker-api", "route-tracker-api.csproj", "{3727743C-5502-4CCD-A6BE-7C6441636589}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "route-tracker-api", "route-tracker-api.csproj", "{3727743C-5502-4CCD-A6BE-7C6441636589}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "route-tracker-api-tests", "..\route-tracker-api-tests\route-tracker-api-tests.csproj", "{E04E8A11-4904-4ED8-BE4A-CFB397C4133F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +17,15 @@ Global
 		{3727743C-5502-4CCD-A6BE-7C6441636589}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3727743C-5502-4CCD-A6BE-7C6441636589}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3727743C-5502-4CCD-A6BE-7C6441636589}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E04E8A11-4904-4ED8-BE4A-CFB397C4133F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E04E8A11-4904-4ED8-BE4A-CFB397C4133F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E04E8A11-4904-4ED8-BE4A-CFB397C4133F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E04E8A11-4904-4ED8-BE4A-CFB397C4133F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B073D72B-2439-43CE-9C08-A05CE1B2D3F3}
 	EndGlobalSection
 EndGlobal
