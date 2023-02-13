@@ -23,5 +23,21 @@ public class DbInitializerTests
         Assert.That(context.Database.EnsureCreated(), Is.False);
     }
 
+    [Test]
+    public void TestNoActionWhenTablesExist()
+    {
+        // Arrange
+        var options = new DbContextOptionsBuilder<RouteTrackerApiContext>()
+            .UseInMemoryDatabase(databaseName: "NoActionWhenTablesExistTestDb")
+            .Options;
+        var context = new RouteTrackerApiContext(options);
+        context.Accounts.Add(new Account(){ObjectIdentifier = "test-oid"});
+        context.SaveChanges();
+
+        // Act
+        DbInitializer.Initialize(context);
+
+        // Assert
+        Assert.That(context.Accounts.Count(), Is.EqualTo(1));
     }
 }
