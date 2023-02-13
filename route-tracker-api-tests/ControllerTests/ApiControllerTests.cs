@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Reflection;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
@@ -7,7 +7,7 @@ using Moq;
 using route_tracker_api.Controllers;
 using route_tracker_api.Services.Interfaces;
 
-namespace route_tracker_api_tests
+namespace route_tracker_api_tests.ControllerTests
 {
     public class ApiControllerTests
     {
@@ -43,34 +43,45 @@ namespace route_tracker_api_tests
         [Test]
         public async Task AddNewUser_ShouldReturnOk_WhenAccountIsAdded()
         {
+            // Arrange
             _accountServiceMock.Setup(x => x.AddAccount(It.IsAny<string>()))
                 .Returns(Task.FromResult(0));
 
+            // Act
             var result = await _controller.AddNewUser();
 
+            // Assert
             Assert.That(result, Is.TypeOf<OkResult>());
         }
 
         [Test]
         public async Task AddNewUser_ShouldReturnConflict_WhenAddingAccountFails()
         {
+            // Assert
             _accountServiceMock.Setup(x => x.AddAccount(It.IsAny<string>()))
                 .Throws(new InvalidOperationException("Error"));
 
+            // Act
             var result = await _controller.AddNewUser();
-
             var conflictResult = result as ConflictObjectResult;
-            Assert.NotNull(conflictResult, "Expected ConflictObjectResult");
+
+            // Assert
+            Assert.That(conflictResult, Is.Not.Null, "Expected ConflictObjectResult");
             Assert.That(conflictResult!.Value, Is.EqualTo("Error"));
         }
-        
+
         [Test]
         public void GetOidForUser_ShouldReturnCorrectObjectId()
         {
-            var methodInfo = typeof(ApiController).GetMethod("GetOidForUser", BindingFlags.NonPublic | BindingFlags.Instance);
+            // Arrange
+            var methodInfo =
+                typeof(ApiController).GetMethod("GetOidForUser", BindingFlags.NonPublic | BindingFlags.Instance);
             Debug.Assert(methodInfo != null, nameof(methodInfo) + " != null");
+            
+            // Act
             var result = methodInfo.Invoke(_controller, null);
-
+            
+            // Assert
             Assert.That(result, Is.EqualTo("12345"));
         }
     }
