@@ -1,8 +1,5 @@
-﻿using System.Security.Cryptography;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using route_tracker_api.Data;
-using route_tracker_api.Services;
 using route_tracker_api.Services.Interfaces;
 
 namespace route_tracker_api.Controllers;
@@ -39,12 +36,11 @@ public class ApiController : ControllerBase
 
         return Ok();
     }
-    
+
     /// <summary>
     /// Get the Object identifier from the current user claims.
     /// </summary>
     /// <returns></returns>
-
     private string GetOidForUser()
     {
         const string oidType = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier";
