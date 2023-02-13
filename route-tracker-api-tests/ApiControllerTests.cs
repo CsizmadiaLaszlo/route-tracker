@@ -64,6 +64,14 @@ namespace route_tracker_api_tests
             Assert.That(conflictResult!.Value, Is.EqualTo("Error"));
         }
         
+        [Test]
+        public void GetOidForUser_ShouldReturnCorrectObjectId()
+        {
+            var methodInfo = typeof(ApiController).GetMethod("GetOidForUser", BindingFlags.NonPublic | BindingFlags.Instance);
+            Debug.Assert(methodInfo != null, nameof(methodInfo) + " != null");
+            var result = methodInfo.Invoke(_controller, null);
+
+            Assert.That(result, Is.EqualTo("12345"));
         }
     }
 }
