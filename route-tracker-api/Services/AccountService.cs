@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using route_tracker_api.Data;
 using route_tracker_api.Models;
 using route_tracker_api.Services.Interfaces;
@@ -18,6 +17,11 @@ public class AccountService : IAccountService
         _context = context;
     }
 
+    /// <summary>
+    /// Creates an account for the current user. Sets the account ObjectIdentifier and adds it to the database.
+    /// </summary>
+    /// <param name="oid">Object identifier (ID) of the user object in Azure AD</param>
+    /// <exception cref="InvalidOperationException">If an account with the OID already exists, an InvalidOperationException is thrown.</exception>
     public async Task AddAccount(string oid)
     {
         if ((await _context.Accounts.FirstOrDefaultAsync(account => account.ObjectIdentifier == oid)) is not null)

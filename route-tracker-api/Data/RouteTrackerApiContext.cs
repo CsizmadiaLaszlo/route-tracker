@@ -10,6 +10,7 @@ public class RouteTrackerApiContext : DbContext
     public RouteTrackerApiContext(DbContextOptions<RouteTrackerApiContext> options) : base(options)
     {
     }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
     }
