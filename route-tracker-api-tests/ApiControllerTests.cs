@@ -52,9 +52,18 @@ namespace route_tracker_api_tests
         }
 
         [Test]
-        public void Test1()
+        public async Task AddNewUser_ShouldReturnConflict_WhenAddingAccountFails()
         {
-            Assert.Pass();
+            _accountServiceMock.Setup(x => x.AddAccount(It.IsAny<string>()))
+                .Throws(new InvalidOperationException("Error"));
+
+            var result = await _controller.AddNewUser();
+
+            var conflictResult = result as ConflictObjectResult;
+            Assert.NotNull(conflictResult, "Expected ConflictObjectResult");
+            Assert.That(conflictResult!.Value, Is.EqualTo("Error"));
+        }
+        
         }
     }
 }
