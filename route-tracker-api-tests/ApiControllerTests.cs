@@ -18,6 +18,37 @@ namespace route_tracker_api_tests
         [SetUp]
         public void Setup()
         {
+            _accountServiceMock = new Mock<IAccountService>();
+            _claimsPrincipalMock = new Mock<ClaimsPrincipal>();
+            var claims = new List<Claim>
+            {
+                new("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", "12345")
+            };
+            _claimsPrincipalMock.Setup(x => x.Claims).Returns(claims);
+
+            var httpContext = new DefaultHttpContext
+            {
+                User = _claimsPrincipalMock.Object
+            };
+
+            _controller = new ApiController(_accountServiceMock.Object)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = httpContext
+                }
+            };
+        }
+
+        [Test]
+        public async Task AddNewUser_ShouldReturnOk_WhenAccountIsAdded()
+        {
+            _accountServiceMock.Setup(x => x.AddAccount(It.IsAny<string>()))
+                .Returns(Task.FromResult(0));
+
+            var result = await _controller.AddNewUser();
+
+            Assert.That(result, Is.TypeOf<OkResult>());
         }
 
         [Test]
