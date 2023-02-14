@@ -84,14 +84,12 @@ export const Home = () => {
 
                                 </center>
                             }
-                            <button className="btn btn-primary" data-set-theme="dark" >
-                                Change to dark
+                            <button className="btn btn-primary" data-set-theme="corporate" >
+                                Change to corporate
                             </button>
-                            <button className="btn btn-primary" data-set-theme="light" >
-                                Change to light
+                            <button className="btn btn-primary" data-set-theme="business" >
+                                Change to business
                             </button>
-                            <button className="btn btn-primary" data-set-theme="dark" data-act-class="ACTIVECLASS"></button>
-                            <button className="btn btn-primary" data-set-theme="light" data-act-class="ACTIVECLASS"></button>
                         </>
                     </>
                 ) : null}
