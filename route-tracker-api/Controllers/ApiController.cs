@@ -11,6 +11,15 @@ public class ApiController : ControllerBase
 {
     private readonly IAccountService _accountService;
 
+    private string Oid
+    {
+        get
+        {
+            const string oidType = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier";
+            return User.Claims.First(claim => (claim.Type).Equals(oidType)).Value;
+        }
+    }
+
     public ApiController(IAccountService accountService)
     {
         _accountService = accountService;
