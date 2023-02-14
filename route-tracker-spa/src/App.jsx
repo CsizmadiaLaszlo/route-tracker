@@ -1,10 +1,11 @@
-import {MsalProvider} from '@azure/msal-react';
+import {AuthenticatedTemplate, MsalProvider, UnauthenticatedTemplate} from '@azure/msal-react';
 import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
 import {PageLayout} from './components/PageLayout';
 import {Home} from './pages/Home';
+import UnauthenticatedAccess from "./components/UnauthenticatedAccess.jsx";
 
 const router = createBrowserRouter([
     {
@@ -20,7 +21,12 @@ const App = ({instance}) => {
 
     return (
         <MsalProvider instance={instance}>
-            <RouterProvider router={router}/>
+            <AuthenticatedTemplate>
+                <RouterProvider router={router}/>
+            </AuthenticatedTemplate>
+            <UnauthenticatedTemplate>
+                <UnauthenticatedAccess/>
+            </UnauthenticatedTemplate>
         </MsalProvider>
     );
 }

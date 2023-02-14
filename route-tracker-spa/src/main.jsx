@@ -4,6 +4,7 @@ import App from './App'
 import {msalConfig} from "./authConfig.js";
 import {PublicClientApplication, EventType} from '@azure/msal-browser';
 import './styles/index.css';
+import {registerNewUser} from "./utils/apiCalls.js";
 
 export const msalInstance = new PublicClientApplication(msalConfig);
 
@@ -22,20 +23,10 @@ msalInstance.addEventCallback((event) => {
         event.payload.account
     ) {
         msalInstance.setActiveAccount(event.payload.account);
+
         const newUser = event.payload.idTokenClaims.newUser === true
         if (newUser) {
-
-            const headers = new Headers();
-            const bearer = `Bearer ${event.payload.accessToken}`;
-            headers.append("Authorization", bearer);
-
-            let options = {
-                method: "POST",
-                headers: headers,
-                // body: null,
-            };
-
-            fetch(`api/new-user`, options).then();
+            registerNewUser(event.payload.accessToken).then();
         }
     }
 });

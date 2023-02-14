@@ -11,8 +11,9 @@
   "dependencies": {
     "@azure/msal-browser": "^2.33.0",
     "@azure/msal-react": "^1.5.3",
-    "daisyui": "^2.50.0",
+    "daisyui": "^2.50.1",
     "react": "^18.2.0",
+    "react-daisyui": "^3.0.2",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.1",
     "theme-change": "^2.3.0"
