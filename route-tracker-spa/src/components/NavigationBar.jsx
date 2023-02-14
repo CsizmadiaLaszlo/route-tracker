@@ -1,7 +1,12 @@
 import {useMsal} from "@azure/msal-react";
+import {Button, Dropdown, Navbar} from "react-daisyui";
+import ThemeSwitch from "./ThemeSwitch.jsx";
 
-export const NavigationBar = (props) => {
+
+export const NavigationBar = () => {
     const {instance} = useMsal();
+    const account = instance.getActiveAccount();
+    const firstLetterOfCurrentUser = account.name[0];
 
     const handleLogoutPopup = () => {
         instance.logoutPopup({
@@ -10,40 +15,50 @@ export const NavigationBar = (props) => {
     };
 
     return (
-        <div className="navbar bg-base-100">
-            <div className="navbar-start">
-                <div className="dropdown">
-                    <label tabIndex={0} className="btn btn-ghost btn-circle">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                             stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                                  d="M4 6h16M4 12h16M4 18h7"/>
-                        </svg>
-                    </label>
-                    <ul tabIndex={0}
-                        className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                        {props.children}
-                    </ul>
-                </div>
-            </div>
-            <div className="navbar-center">
-                <a className="btn btn-ghost normal-case text-xl">{props.title}</a>
-            </div>
-            <div className="navbar-end">
-                <button className="btn btn-ghost btn-circle" onClick={handleLogoutPopup}>
-                    <div className="avatar placeholder">
-                        <div className="bg-neutral-focus text-neutral-content rounded-full w-8">
-                            <span className="text-3xl">K</span>
-                        </div>
-                    </div>
-                </button>
-            </div>
+        <div className="pb-40 flex w-full component-preview p-4 items-center justify-center gap-2 font-sans">
+            <Navbar className={"shadow-xl rounded-box border-solid border"}>
+                <Navbar.Start>
+                    <Dropdown>
+                        <Button color="ghost" shape="circle" tabIndex={0}>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-5 w-5"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M4 6h16M4 12h16M4 18h7"
+                                />
+                            </svg>
+                        </Button>
+                        <Dropdown.Menu tabIndex={0} className="menu-compact w-52">
+                            <Dropdown.Item>Homepage</Dropdown.Item>
+                            <Dropdown.Item>Portfolio</Dropdown.Item>
+                            <Dropdown.Item>About</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </Navbar.Start>
+                <Navbar.Center>
+                    <Button color="ghost" className="normal-case text-xl">
+                        Route Tracker
+                    </Button>
+                </Navbar.Center>
+                <Navbar.End className="navbar-end">
+                    <ThemeSwitch/>
+                    <Dropdown vertical="end">
+                        <Button color="ghost" className="avatar placeholder" shape="circle">
+                            {firstLetterOfCurrentUser}
+                        </Button>
+                        <Dropdown.Menu className="w-52 menu-compact">
+                            <Dropdown.Item onClick={handleLogoutPopup}>Logout</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </Navbar.End>
+            </Navbar>
         </div>
-    )
-}
-
-export const NavigationBarItem = (props) => {
-    return (
-        <li><a>{props.title}</a></li>
     )
 }

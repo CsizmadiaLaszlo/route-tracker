@@ -1,18 +1,20 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
-  theme: {
-    container: {
-      center: true,
+    content: [
+        "./index.html",
+        "./src/**/*.{js,ts,jsx,tsx}",
+        "node_modules/daisyui/dist/**/*.js",
+        "node_modules/react-daisyui/dist/**/*.js"
+    ],
+    theme: {
+        container: {
+            center: true,
+        },
+        extend: {},
     },
-    extend: {},
-  },
-  plugins: [require("daisyui")],
-  daisyui: {
-    themes: ["corporate", "business"],
-    darkTheme: "dark",
-  },
+    plugins: [require("daisyui")],
+    daisyui: {
+        themes: ["corporate", "business"],
+        darkTheme: "dark",
+    },
 }

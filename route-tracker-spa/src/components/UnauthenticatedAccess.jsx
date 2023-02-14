@@ -18,12 +18,15 @@ const UnauthenticatedAccess = () => {
     return (
         <Container>
             <Hero>
-                <Hero.Content>
-                    <h1 className="text-5xl font-bold">Hello there</h1>
-                    <p className="py-6">
-                        You must login in order to use the website.
-                    </p>
-                    <Button children={"Login"} shape={"circle"} onClick={handleLoginPopup}/>
+                <Hero.Content className="text-center">
+                    <div className="max-w-md">
+                        <h1 className="text-5xl font-bold">Hello there</h1>
+                        <p className="py-6">
+                            You must login in order to use the website.
+                        </p>
+
+                        <Button children={"Login"} shape={"circle"} onClick={handleLoginPopup}/>
+                    </div>
                 </Hero.Content>
             </Hero>
         </Container>
