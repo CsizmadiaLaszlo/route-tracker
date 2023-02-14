@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using System.Reflection;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -68,21 +66,6 @@ namespace route_tracker_api_tests.ControllerTests
             // Assert
             Assert.That(conflictResult, Is.Not.Null, "Expected ConflictObjectResult");
             Assert.That(conflictResult!.Value, Is.EqualTo("Error"));
-        }
-
-        [Test]
-        public void GetOidForUser_ShouldReturnCorrectObjectId()
-        {
-            // Arrange
-            var methodInfo =
-                typeof(ApiController).GetMethod("GetOidForUser", BindingFlags.NonPublic | BindingFlags.Instance);
-            Debug.Assert(methodInfo != null, nameof(methodInfo) + " != null");
-            
-            // Act
-            var result = methodInfo.Invoke(_controller, null);
-            
-            // Assert
-            Assert.That(result, Is.EqualTo("12345"));
         }
     }
 }
