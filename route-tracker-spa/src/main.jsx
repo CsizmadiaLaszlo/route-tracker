@@ -1,14 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
-
 import {msalConfig} from "./authConfig.js";
-import { PublicClientApplication, EventType } from '@azure/msal-browser';
-import { BrowserRouter } from 'react-router-dom';
-
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import {PublicClientApplication, EventType} from '@azure/msal-browser';
 import './styles/index.css';
-import useFetchWithMsal from "./hooks/useFetchWithMsal.jsx";
 
 export const msalInstance = new PublicClientApplication(msalConfig);
 
@@ -27,10 +22,8 @@ msalInstance.addEventCallback((event) => {
         event.payload.account
     ) {
         msalInstance.setActiveAccount(event.payload.account);
-        // console.log("Msal event callback NEW USER-------------------------------------------------------");
         const newUser = event.payload.idTokenClaims.newUser === true
-        if (true){
-            // useFetchWithMsal("POST", "new-user").then();
+        if (newUser) {
 
             const headers = new Headers();
             const bearer = `Bearer ${event.payload.accessToken}`;
@@ -44,16 +37,11 @@ msalInstance.addEventCallback((event) => {
 
             fetch(`api/new-user`, options).then();
         }
-        // console.log(newUser)
-        // console.log("Msal event callback NEW USER-------------------------------------------------------");
-        // const cache = msalInstance.getTokenCache();
-        // console.log(cache)
-
     }
 });
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <App instance={msalInstance} />
+        <App instance={msalInstance}/>
     </React.StrictMode>,
 )
