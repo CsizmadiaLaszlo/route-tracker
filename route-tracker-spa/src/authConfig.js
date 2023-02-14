@@ -6,9 +6,7 @@
 import { LogLevel } from "@azure/msal-browser";
 
 /**
- * Enter here the user flows and custom policies for your B2C application
- * To learn more about user flows, visit: https://docs.microsoft.com/en-us/azure/active-directory-b2c/user-flow-overview
- * To learn more about custom policies, visit: https://docs.microsoft.com/en-us/azure/active-directory-b2c/custom-policy-overview
+ * User flows and custom policies for the B2C application
  */
 export const b2cPolicies = {
     names: {
@@ -33,21 +31,19 @@ export const b2cPolicies = {
 
 /**
  * Configuration object to be passed to MSAL instance on creation.
- * For a full list of MSAL.js configuration parameters, visit:
- * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/configuration.md
  */
 export const msalConfig = {
     auth: {
-        clientId: 'a9620104-0444-4475-ba9d-2b92ec362f84', // This is the ONLY mandatory field that you need to supply.
-        authority: b2cPolicies.authorities.signUpSignIn.authority, // Choose SUSI as your default authority.
-        knownAuthorities: [b2cPolicies.authorityDomain], // Mark your B2C tenant's domain as trusted.
-        redirectUri: '/', // You must register this URI on Azure Portal/App Registration. Defaults to window.location.origin
-        postLogoutRedirectUri: '/', // Indicates the page to navigate after logout.
-        navigateToLoginRequestUrl: false, // If "true", will navigate back to the original request location before processing the auth code response.
+        clientId: 'a9620104-0444-4475-ba9d-2b92ec362f84',
+        authority: b2cPolicies.authorities.signUpSignIn.authority,
+        knownAuthorities: [b2cPolicies.authorityDomain],
+        redirectUri: '/',
+        postLogoutRedirectUri: '/',
+        navigateToLoginRequestUrl: false,
     },
     cache: {
-        cacheLocation: 'sessionStorage', // Configures cache location. "sessionStorage" is more secure, but "localStorage" gives you SSO between tabs.
-        storeAuthStateInCookie: false, // Set this to "true" if you are having issues on IE11 or Edge
+        cacheLocation: 'sessionStorage',
+        storeAuthStateInCookie: false,
     },
     system: {
         loggerOptions: {
@@ -77,8 +73,7 @@ export const msalConfig = {
 };
 
 /**
- * Add here the endpoints and scopes when obtaining an access token for protected web APIs. For more information, see:
- * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/resources-and-scopes.md
+ * Endpoints and scopes when obtaining an access token for protected web APIs. For more information.
  */
 export const protectedResources = {
     apiTodoList: {
@@ -88,13 +83,6 @@ export const protectedResources = {
             write: ['https://routetracker.onmicrosoft.com/tasks-api/tasks.write'],
         },
     },
-    // apiTodoList: {
-    //     endpoint: 'http://localhost:5001/api/todolist',
-    //     scopes: {
-    //         read: ['https://routetracker.onmicrosoft.com/tasks-api/tasks.read'],
-    //         write: ['https://routetracker.onmicrosoft.com/tasks-api/tasks.write'],
-    //     },
-    // },
 };
 
 /**
