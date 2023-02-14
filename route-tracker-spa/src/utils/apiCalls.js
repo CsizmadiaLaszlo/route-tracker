@@ -1,10 +1,6 @@
-import {InteractionType} from "@azure/msal-browser";
-
 const normal = "/api/public";
 const authorized = "/api/secure";
-import { useMsal, useMsalAuthentication } from "@azure/msal-react";
 
-// const TOKENPOINT = "https://routetracker.b2clogin.com/routetracker.onmicrosoft.com/access_as_user/oauth2/v2.0/token";
 
 export const normalApiCall = async () => {
     return await fetch(normal).then(r => {
