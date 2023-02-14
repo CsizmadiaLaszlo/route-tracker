@@ -33,10 +33,9 @@ public class ApiController : ControllerBase
     [Route("new-user")]
     public async Task<ActionResult> AddNewUser()
     {
-        var objectId = GetOidForUser();
         try
         {
-            await _accountService.AddAccount(objectId);
+            await _accountService.AddAccount(Oid);
         }
         catch (InvalidOperationException e)
         {
@@ -44,15 +43,5 @@ public class ApiController : ControllerBase
         }
 
         return Ok();
-    }
-
-    /// <summary>
-    /// Get the Object identifier from the current user claims.
-    /// </summary>
-    /// <returns></returns>
-    private string GetOidForUser()
-    {
-        const string oidType = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier";
-        return User.Claims.First(claim => (claim.Type).Equals(oidType)).Value;
     }
 }
