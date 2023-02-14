@@ -1,5 +1,5 @@
 const normal = "/api/public";
-const authorized = "/api/secure";
+const newUser = "api/new-user";
 
 
 export const normalApiCall = async () => {
@@ -9,17 +9,16 @@ export const normalApiCall = async () => {
     });
 }
 
-export const authorizedApiCall = async (token) => {
+export const registerNewUser = (token) => {
 
     const headers = new Headers();
     const bearer = `Bearer ${token}`;
     headers.append("Authorization", bearer);
 
     let options = {
-        // method: method,
+        method: "POST",
         headers: headers,
-        // body: data ? JSON.stringify(data) : null,
     };
 
-    return await fetch(authorized, options).then(r => r.status);
+    return fetch(newUser, options);
 }
