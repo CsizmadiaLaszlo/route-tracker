@@ -16,7 +16,7 @@ export const NavigationBar = () => {
 
     return (
         <div className="pb-40 flex w-full component-preview p-4 items-center justify-center gap-2 font-sans">
-            <Navbar className={"shadow-xl rounded-box border-solid border"}>
+            <Navbar className={"shadow-xl rounded-box bg-base-100"}>
                 <Navbar.Start>
                     <Dropdown>
                         <Button color="ghost" shape="circle" tabIndex={0}>
