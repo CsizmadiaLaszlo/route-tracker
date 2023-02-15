@@ -1,8 +1,19 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
+import Backend from 'i18next-http-backend';
+
+export const languages = {
+    en: {nativeName: 'English'},
+    hu: {nativeName: 'Magyar'},
+    de: {nativeName: 'Deutsch'}
+};
 
 i18n
+    // i18next-http-backend
+    // loads translations from your server
+    // https://github.com/i18next/i18next-http-backend
+    .use(Backend)
     // detect user language
     // learn more: https://github.com/i18next/i18next-browser-languageDetector
     .use(LanguageDetector)
@@ -15,39 +26,6 @@ i18n
         fallbackLng: 'en',
         interpolation: {
             escapeValue: false, // not needed for react as it escapes by default
-        },
-        resources: {
-
-            // English
-            en: {
-                translation: {
-                    description: {
-                        part1: 'Welcome',
-                        part2: 'You must login in order to use the website',
-                        part3: 'login',
-                    }
-                }
-            },
-            // Hungarian
-            hu: {
-                translation: {
-                    description: {
-                        part1: 'Üdvözöllek',
-                        part2: 'A weboldal használatához be kell jelentkeznie.',
-                        part3: 'bejelentkezés',
-                    }
-                }
-            },
-            // Deutsch
-            de: {
-                translation: {
-                    description: {
-                        part1: 'Willkommen',
-                        part2: 'Sie müssen sich anmelden, um die Website zu nutzen.',
-                        part3: 'anmeldung',
-                    }
-                }
-            }
         }
     }).then();
 
