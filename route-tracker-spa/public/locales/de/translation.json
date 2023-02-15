@@ -3,5 +3,11 @@
     "welcome": "Willkommen",
     "info": "Sie müssen sich anmelden, um die Website zu nutzen.",
     "button": "anmeldung"
+  },
+  "navigationMenu" : {
+    "homepage" : "Startseite",
+    "statistics" : "Statistiken",
+    "settings" : "Einstellungen",
+    "logout": "Abmelden"
   }
 }
