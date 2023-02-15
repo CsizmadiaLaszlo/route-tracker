@@ -1,7 +1,9 @@
 import {useMsal} from "@azure/msal-react";
-import {Button, Dropdown, Navbar} from "react-daisyui";
+import {Button, Divider, Dropdown, Navbar} from "react-daisyui";
 import ThemeSwitch from "./ThemeSwitch.jsx";
 import LanguageSwitch from "./LanguageSwitch.jsx";
+import {BiMenuAltLeft} from "react-icons/bi";
+import {useTranslation} from "react-i18next";
 
 
 export const NavigationBar = () => {
