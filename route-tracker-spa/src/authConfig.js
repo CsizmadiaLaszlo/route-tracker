@@ -76,8 +76,8 @@ export const msalConfig = {
  * Endpoints and scopes when obtaining an access token for protected web APIs. For more information.
  */
 export const protectedResources = {
-    apiTodoList: {
-        endpoint: 'https://localhost:5001/api/hello',
+    api: {
+        endpoint: 'https://localhost:7227/api/',
         scopes: {
             read: ['https://routetracker.onmicrosoft.com/tasks-api/tasks.read'],
             write: ['https://routetracker.onmicrosoft.com/tasks-api/tasks.write'],
@@ -92,5 +92,5 @@ export const protectedResources = {
  * https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-permissions-and-consent#openid-connect-scopes
  */
 export const loginRequest = {
-    scopes: [...protectedResources.apiTodoList.scopes.read, ...protectedResources.apiTodoList.scopes.write],
+    scopes: [...protectedResources.api.scopes.read, ...protectedResources.api.scopes.write],
 };
