@@ -1,6 +1,6 @@
 const Container = (props) => {
     return (
-        <div className={"container w-640 text-center p-5"}>
+        <div className={"container mx-auto p-5"}>
             {props.children}
         </div>
     )
