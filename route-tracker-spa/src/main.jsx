@@ -1,10 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
-import {msalConfig} from "./authConfig.js";
 import {PublicClientApplication, EventType} from '@azure/msal-browser';
+
 import './styles/index.css';
+import {msalConfig} from "./authConfig.js";
 import {registerNewUser} from "./utils/apiCalls.js";
+import './i18n';
 
 export const msalInstance = new PublicClientApplication(msalConfig);
 
