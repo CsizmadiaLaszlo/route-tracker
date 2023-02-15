@@ -1,13 +1,14 @@
 import {useMsal} from "@azure/msal-react";
-import {Button, Dropdown, Navbar} from "react-daisyui";
+import {Button, Divider, Dropdown, Navbar} from "react-daisyui";
 import ThemeSwitch from "./ThemeSwitch.jsx";
 import LanguageSwitch from "./LanguageSwitch.jsx";
+import {BiMenuAltLeft} from "react-icons/bi";
+import {useTranslation} from "react-i18next";
 
 
 export const NavigationBar = () => {
     const {instance} = useMsal();
-    const account = instance.getActiveAccount();
-    const firstLetterOfCurrentUser = account.name[0];
+    const {t} = useTranslation();
 
     const handleLogoutPopup = () => {
         instance.logoutPopup({
@@ -21,25 +22,14 @@ export const NavigationBar = () => {
                 <Navbar.Start>
                     <Dropdown>
                         <Button color="ghost" shape="circle" tabIndex={0}>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-5 w-5"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M4 6h16M4 12h16M4 18h7"
-                                />
-                            </svg>
+                            <BiMenuAltLeft/>
                         </Button>
                         <Dropdown.Menu tabIndex={0} className="menu-compact w-52">
-                            <Dropdown.Item>Homepage</Dropdown.Item>
-                            <Dropdown.Item>Portfolio</Dropdown.Item>
-                            <Dropdown.Item>About</Dropdown.Item>
+                            <Dropdown.Item>{t('navigationMenu.homepage')}</Dropdown.Item>
+                            <Dropdown.Item>{t('navigationMenu.statistics')}</Dropdown.Item>
+                            <Divider></Divider>
+                            <Dropdown.Item>{t('navigationMenu.settings')}</Dropdown.Item>
+                            <Dropdown.Item onClick={handleLogoutPopup}>{t('navigationMenu.logout')}</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                 </Navbar.Start>
@@ -49,16 +39,8 @@ export const NavigationBar = () => {
                     </Button>
                 </Navbar.Center>
                 <Navbar.End className="navbar-end">
-                    <ThemeSwitch/>
                     <LanguageSwitch/>
-                    <Dropdown vertical="end">
-                        <Button color="ghost" className="avatar placeholder" shape="circle">
-                            {firstLetterOfCurrentUser}
-                        </Button>
-                        <Dropdown.Menu className="w-52 menu-compact">
-                            <Dropdown.Item onClick={handleLogoutPopup}>Logout</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
+                    <ThemeSwitch/>
                 </Navbar.End>
             </Navbar>
         </div>

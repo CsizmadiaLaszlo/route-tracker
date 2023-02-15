@@ -3,5 +3,11 @@
     "welcome": "Welcome",
     "info": "You must login in order to use the website",
     "button": "login"
+  },
+  "navigationMenu" : {
+    "homepage" : "Homepage",
+    "statistics" : "Statistics",
+    "settings" : "Settings",
+    "logout": "Logout"
   }
 }

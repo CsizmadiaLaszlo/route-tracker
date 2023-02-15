@@ -3,5 +3,11 @@
     "welcome": "Üdvözöllek",
     "info": "A weboldal használatához be kell jelentkeznie.",
     "button": "bejelentkezés"
+  },
+  "navigationMenu" : {
+    "homepage" : "Főoldal",
+    "statistics" : "Statisztikák",
+    "settings" : "Beállítások",
+    "logout": "Kijelentkezés"
   }
 }
