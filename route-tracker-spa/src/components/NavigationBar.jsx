@@ -1,6 +1,7 @@
 import {useMsal} from "@azure/msal-react";
 import {Button, Dropdown, Navbar} from "react-daisyui";
 import ThemeSwitch from "./ThemeSwitch.jsx";
+import LanguageSwitch from "./LanguageSwitch.jsx";
 
 
 export const NavigationBar = () => {
@@ -15,7 +16,7 @@ export const NavigationBar = () => {
     };
 
     return (
-        <div className="pb-40 flex w-full component-preview p-4 items-center justify-center gap-2 font-sans">
+        <div className="pb-10 flex w-full component-preview items-center justify-center gap-2 font-sans">
             <Navbar className={"shadow-xl rounded-box bg-base-100"}>
                 <Navbar.Start>
                     <Dropdown>
@@ -49,6 +50,7 @@ export const NavigationBar = () => {
                 </Navbar.Center>
                 <Navbar.End className="navbar-end">
                     <ThemeSwitch/>
+                    <LanguageSwitch/>
                     <Dropdown vertical="end">
                         <Button color="ghost" className="avatar placeholder" shape="circle">
                             {firstLetterOfCurrentUser}
