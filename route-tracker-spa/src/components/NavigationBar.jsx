@@ -8,8 +8,7 @@ import {useTranslation} from "react-i18next";
 
 export const NavigationBar = () => {
     const {instance} = useMsal();
-    const account = instance.getActiveAccount();
-    const firstLetterOfCurrentUser = account.name[0];
+    const {t} = useTranslation();
 
     const handleLogoutPopup = () => {
         instance.logoutPopup({
@@ -26,9 +25,11 @@ export const NavigationBar = () => {
                             <BiMenuAltLeft/>
                         </Button>
                         <Dropdown.Menu tabIndex={0} className="menu-compact w-52">
-                            <Dropdown.Item>Homepage</Dropdown.Item>
-                            <Dropdown.Item>Portfolio</Dropdown.Item>
-                            <Dropdown.Item>About</Dropdown.Item>
+                            <Dropdown.Item>{t('navigationMenu.homepage')}</Dropdown.Item>
+                            <Dropdown.Item>{t('navigationMenu.statistics')}</Dropdown.Item>
+                            <Divider></Divider>
+                            <Dropdown.Item>{t('navigationMenu.settings')}</Dropdown.Item>
+                            <Dropdown.Item onClick={handleLogoutPopup}>{t('navigationMenu.logout')}</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                 </Navbar.Start>
@@ -38,16 +39,8 @@ export const NavigationBar = () => {
                     </Button>
                 </Navbar.Center>
                 <Navbar.End className="navbar-end">
-                    <ThemeSwitch/>
                     <LanguageSwitch/>
-                    <Dropdown vertical="end">
-                        <Button color="ghost" className="avatar placeholder" shape="circle">
-                            {firstLetterOfCurrentUser}
-                        </Button>
-                        <Dropdown.Menu className="w-52 menu-compact">
-                            <Dropdown.Item onClick={handleLogoutPopup}>Logout</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
+                    <ThemeSwitch/>
                 </Navbar.End>
             </Navbar>
         </div>
