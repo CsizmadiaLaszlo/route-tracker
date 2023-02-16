@@ -6,13 +6,18 @@ import {
 import {PageLayout} from './components/PageLayout';
 import {Home} from './pages/Home';
 import UnauthenticatedAccess from "./components/UnauthenticatedAccess.jsx";
+import Settings from "./pages/Settings.jsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <PageLayout/>,
         children: [
-            {index: true, element: <Home/>}
+            {index: true, element: <Home/>},
+            {
+                path: "/settings",
+                element: <Settings />,
+            },
         ]
     },
 ]);
