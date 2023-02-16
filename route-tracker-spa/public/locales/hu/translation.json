@@ -9,5 +9,10 @@
     "statistics" : "Statisztikák",
     "settings" : "Beállítások",
     "logout": "Kijelentkezés"
+  },
+  "settings": {
+    "hourlyRate": "Órabér",
+    "overtimeRate": "Túlóra pótlék",
+    "nightShiftRate" : "Éjszakai pótlék"
   }
 }
