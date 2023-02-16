@@ -11,11 +11,11 @@ const LanguageSwitch = () => {
     }
 
     return (
-        <Dropdown>
+        <Dropdown hover>
             <Button color="ghost" shape="circle" tabIndex={0}>
                 <HiLanguage/>
             </Button>
-            <Dropdown.Menu tabIndex={0} className="menu-compact">
+            <Dropdown.Menu tabIndex={0} className="menu-compact shadow-xl rounded-box bg-base-300">
                 <>
                     {Object.keys(languages).map((language) => (
                         <Dropdown.Item key={language}
