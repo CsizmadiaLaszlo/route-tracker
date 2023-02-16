@@ -1,24 +1,22 @@
 import {
-    useEffect,
     useState,
+    useCallback, useEffect,
 } from 'react';
 
 import {useMsal} from "@azure/msal-react";
 import {loginRequest} from "../authConfig.js";
 
-const useFetchWithMsal = async (method, endpoint, data = null) => {
+const useFetchWithMsal = () => {
     const {instance, accounts} = useMsal();
-    const [accessToken, setAccessToken] = useState(null);
-
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [data, setData] = useState(null);
+    const [accessToken, setAccessToken] = useState(null)
 
     useEffect(() => {
-        acquireTokenSilentFromCache()
-        // 👆 false parameter is required for react project
-    }, [])
+        acquireTokenSilentFromCache();
+    })
 
-    /**
-     * Silently acquires an access token
-     * */
     const acquireTokenSilentFromCache = () => {
         const request = {
             ...loginRequest,
@@ -29,62 +27,52 @@ const useFetchWithMsal = async (method, endpoint, data = null) => {
         });
     }
 
-    const headers = new Headers();
-    const bearer = `Bearer ${accessToken}`;
-    headers.append("Authorization", bearer);
+    /**
+     * Execute a fetch request with the given options
+     * @param {string} method: GET, POST, PUT, DELETE
+     * @param {String} endpoint: The endpoint to call
+     * @param {Object} data: The data to send to the endpoint, if any
+     * @returns JSON response
+     */
+    const execute = async (method, endpoint, data = null) => {
 
-    let options = {
-        method: method,
-        headers: headers,
-        body: data ? JSON.stringify(data) : null,
+        if (accessToken) {
+            try {
+                let response = null;
+
+                const headers = new Headers();
+                const bearer = `Bearer ${accessToken}`;
+                headers.append("Authorization", bearer);
+
+                if (data) headers.append('Content-Type', 'application/json');
+
+                let options = {
+                    method: method,
+                    headers: headers,
+                    body: data ? JSON.stringify(data) : null,
+                };
+
+                setIsLoading(true);
+
+                response = await (await fetch(`api/${endpoint}`, options)).json();
+                setData(response);
+
+                setIsLoading(false);
+                return response;
+            } catch (e) {
+                setError(e);
+                setIsLoading(false);
+                throw e;
+            }
+        }
     };
 
-    return await fetch(`api/${endpoint}`, options).then(r => r.json());
-
-
-    // const execute = async (method, endpoint, data = null) => {
-    //     if (msalError) {
-    //         setError(msalError);
-    //         return;
-    //     }
-    //
-    //     if (result) {
-    //         try {
-    //             let response = null;
-    //
-    //             const headers = new Headers();
-    //             const bearer = `Bearer ${result.accessToken}`;
-    //             headers.append("Authorization", bearer);
-    //
-    //             if (data) headers.append('Content-Type', 'application/json');
-    //
-    //             let options = {
-    //                 method: method,
-    //                 headers: headers,
-    //                 body: data ? JSON.stringify(data) : null,
-    //             };
-    //
-    //             setIsLoading(true);
-    //
-    //             response = await (await fetch(endpoint, options)).json();
-    //             setData(response);
-    //
-    //             setIsLoading(false);
-    //             return response;
-    //         } catch (e) {
-    //             setError(e);
-    //             setIsLoading(false);
-    //             throw e;
-    //         }
-    //     }
-    // };
-    //
-    // return {
-    //     isLoading,
-    //     error,
-    //     data,
-    //     execute: useCallback(execute, [result, msalError]), // to avoid infinite calls when inside a `useEffect`
-    // };
+    return {
+        isLoading,
+        error,
+        data,
+        execute: useCallback(execute, [accessToken]), // to avoid infinite calls when inside a `useEffect`
+    };
 };
 
 export default useFetchWithMsal;
