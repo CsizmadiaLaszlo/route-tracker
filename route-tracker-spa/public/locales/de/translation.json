@@ -9,5 +9,10 @@
     "statistics" : "Statistiken",
     "settings" : "Einstellungen",
     "logout": "Abmelden"
+  },
+  "settings": {
+    "hourlyRate": "Stundensatz",
+    "overtimeRate": "Überstundensatz",
+    "nightShiftRate" : "Nachtzuschlag"
   }
 }

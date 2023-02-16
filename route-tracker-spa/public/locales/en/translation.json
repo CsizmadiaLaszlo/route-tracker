@@ -9,5 +9,10 @@
     "statistics" : "Statistics",
     "settings" : "Settings",
     "logout": "Logout"
+  },
+  "settings": {
+    "hourlyRate": "Hourly rate",
+    "overtimeRate": "Overtime rate",
+    "nightShiftRate" : "Night shift rate"
   }
 }

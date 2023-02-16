@@ -4,6 +4,7 @@ import ThemeSwitch from "./ThemeSwitch.jsx";
 import LanguageSwitch from "./LanguageSwitch.jsx";
 import {BiMenuAltLeft} from "react-icons/bi";
 import {useTranslation} from "react-i18next";
+import {Link} from "react-router-dom";
 
 
 export const NavigationBar = () => {
@@ -18,25 +19,32 @@ export const NavigationBar = () => {
 
     return (
         <div className="pb-10 flex w-full component-preview items-center justify-center gap-2 font-sans">
-            <Navbar className={"shadow-xl rounded-box bg-base-100"}>
+            <Navbar className={"shadow-xl rounded-box bg-base-300"}>
                 <Navbar.Start>
-                    <Dropdown>
+                    <Dropdown  hover>
                         <Button color="ghost" shape="circle" tabIndex={0}>
                             <BiMenuAltLeft/>
                         </Button>
-                        <Dropdown.Menu tabIndex={0} className="menu-compact w-52">
-                            <Dropdown.Item>{t('navigationMenu.homepage')}</Dropdown.Item>
+                        <Dropdown.Menu tabIndex={0} className="menu-compact w-52 rounded-box bg-base-300">
+                            <Link to={`/`}>
+                                <Dropdown.Item>{t('navigationMenu.homepage')}</Dropdown.Item>
+                            </Link>
                             <Dropdown.Item>{t('navigationMenu.statistics')}</Dropdown.Item>
                             <Divider></Divider>
-                            <Dropdown.Item>{t('navigationMenu.settings')}</Dropdown.Item>
+                            <Link to={`/settings`}>
+                                <Dropdown.Item>{t('navigationMenu.settings')}</Dropdown.Item>
+                            </Link>
                             <Dropdown.Item onClick={handleLogoutPopup}>{t('navigationMenu.logout')}</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                 </Navbar.Start>
                 <Navbar.Center>
-                    <Button color="ghost" className="normal-case text-xl">
-                        Route Tracker
-                    </Button>
+                    <Link to={`/`}>
+                        <Button color="ghost" className="normal-case text-xl">
+                            Route Tracker
+                        </Button>
+                    </Link>
+
                 </Navbar.Center>
                 <Navbar.End className="navbar-end">
                     <LanguageSwitch/>
