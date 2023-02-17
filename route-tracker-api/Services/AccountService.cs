@@ -41,4 +41,18 @@ public class AccountService : IAccountService
         return account.Setting;
     }
 
+    public async Task<Setting> UpdateAccountSetting(string oid, Setting newSetting)
+    {
+        var account = await GetAccountByOid(oid);
+        if (account is null) throw new InvalidOperationException();
+        account.Setting.UpdateSetting(newSetting);
+        await _context.SaveChangesAsync();
+        return account.Setting;
+    }
+
+    private async Task<Account> GetAccountByOid(string oid)
+    {
+        return (await _context.Accounts.Include(account => account.Setting)
+            .FirstOrDefaultAsync(account => account.ObjectIdentifier == oid) ?? null)!;
+    }
 }
