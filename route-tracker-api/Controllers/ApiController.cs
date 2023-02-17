@@ -54,4 +54,11 @@ public class ApiController : ControllerBase
         return Ok(setting);
     }
 
+    [HttpPost]
+    [Route("setting")]
+    public async Task<ActionResult> UpdateAccountSetting([FromBody] Setting setting)
+    {
+        var newSetting = await _accountService.UpdateAccountSetting(Oid, setting);
+        return CreatedAtAction("UpdateAccountSetting",newSetting);
+    }
 }
