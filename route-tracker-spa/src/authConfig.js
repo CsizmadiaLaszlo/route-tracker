@@ -1,3 +1,5 @@
+// noinspection SpellCheckingInspection
+
 /*
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License.
@@ -42,8 +44,9 @@ export const msalConfig = {
         navigateToLoginRequestUrl: false,
     },
     cache: {
-        cacheLocation: 'sessionStorage',
-        storeAuthStateInCookie: false,
+        cacheLocation: 'localStorage',
+        // cacheLocation: 'sessionStorage',
+        storeAuthStateInCookie: true,
     },
     system: {
         loggerOptions: {
