@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using route_tracker_api.Models;
 using route_tracker_api.Services.Interfaces;
 
 namespace route_tracker_api.Controllers;
@@ -43,5 +44,21 @@ public class ApiController : ControllerBase
         }
 
         return Ok();
+    }
+    
+    [HttpGet]
+    [Route("setting")]
+    public async Task<ActionResult> GetAccountSetting()
+    {
+        var setting = await _accountService.GetAccountSetting(Oid);
+        return Ok(setting);
+    }
+
+    [HttpPost]
+    [Route("setting")]
+    public async Task<ActionResult> UpdateAccountSetting([FromBody] Setting setting)
+    {
+        var newSetting = await _accountService.UpdateAccountSetting(Oid, setting);
+        return CreatedAtAction("UpdateAccountSetting",newSetting);
     }
 }

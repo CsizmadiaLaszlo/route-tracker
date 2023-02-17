@@ -13,6 +13,7 @@
   "settings": {
     "hourlyRate": "Órabér",
     "overtimeRate": "Túlóra pótlék",
-    "nightShiftRate" : "Éjszakai pótlék"
+    "nightShiftRate" : "Éjszakai pótlék",
+    "save" : "Mentés"
   }
 }

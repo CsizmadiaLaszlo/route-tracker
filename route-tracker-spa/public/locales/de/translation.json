@@ -13,6 +13,7 @@
   "settings": {
     "hourlyRate": "Stundensatz",
     "overtimeRate": "Überstundensatz",
-    "nightShiftRate" : "Nachtzuschlag"
+    "nightShiftRate" : "Nachtzuschlag",
+    "save" : "Speichern"
   }
 }

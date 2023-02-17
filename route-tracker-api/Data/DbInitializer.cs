@@ -11,7 +11,7 @@ public static class DbInitializer
         context.Database.EnsureCreated();
 
         // Look for tables, if any, no action
-        if (context.Accounts.Any())
+        if (context.Accounts.Any() || context.Settings.Any())
         {
             return;
         }
