@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace route_tracker_api.Models;
 
@@ -13,5 +14,9 @@ public class Account
     /// <summary>
     /// Object identifier (ID) of the user object in Azure AD
     /// </summary>
-    public string ObjectIdentifier { get; set; } = null!;
+    [Required]
+    public string ObjectIdentifier { get; init; } = null!;
+    
+    [Required]
+    public Setting Setting { get; set; } = null!;
 }
