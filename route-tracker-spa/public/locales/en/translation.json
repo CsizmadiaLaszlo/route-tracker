@@ -13,6 +13,7 @@
   "settings": {
     "hourlyRate": "Hourly rate",
     "overtimeRate": "Overtime rate",
-    "nightShiftRate" : "Night shift rate"
+    "nightShiftRate" : "Night shift rate",
+    "save" : "Save"
   }
 }
