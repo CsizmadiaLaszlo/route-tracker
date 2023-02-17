@@ -24,12 +24,21 @@ public class AccountService : IAccountService
     /// <exception cref="InvalidOperationException">If an account with the OID already exists, an InvalidOperationException is thrown.</exception>
     public async Task AddAccount(string oid)
     {
+        // TODO use the private async Task<Account> GetAccountByOid(string oid) method
         if ((await _context.Accounts.FirstOrDefaultAsync(account => account.ObjectIdentifier == oid)) is not null)
         {
             throw new InvalidOperationException($"There is already an account with OID: {oid}");
         }
 
-        await _context.Accounts.AddAsync(new Account() { ObjectIdentifier = oid });
+        await _context.Accounts.AddAsync(new Account() { ObjectIdentifier = oid, Setting = new Setting() });
         await _context.SaveChangesAsync();
     }
+
+    public async Task<Setting> GetAccountSetting(string oid)
+    {
+        var account = await GetAccountByOid(oid);
+        if (account is null) throw new InvalidOperationException();
+        return account.Setting;
+    }
+
 }
