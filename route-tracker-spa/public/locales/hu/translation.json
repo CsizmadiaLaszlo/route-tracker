@@ -14,6 +14,11 @@
     "hourlyRate": "Órabér",
     "overtimeRate": "Túlóra pótlék",
     "nightShiftRate" : "Éjszakai pótlék",
-    "save" : "Mentés"
+    "save" : "Mentés",
+    "title" : "Beállítások"
+  },
+  "home": {
+    "newRoute": "Új útvonal",
+    "date": "{{date, DATE_HUGE}}"
   }
 }

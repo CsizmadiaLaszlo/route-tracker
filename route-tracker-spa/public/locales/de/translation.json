@@ -14,6 +14,11 @@
     "hourlyRate": "Stundensatz",
     "overtimeRate": "Überstundensatz",
     "nightShiftRate" : "Nachtzuschlag",
-    "save" : "Speichern"
+    "save" : "Speichern",
+    "title" : "Einstellungen"
+  },
+  "home": {
+    "newRoute": "Neue Route",
+    "date": "{{date, DATE_HUGE}}"
   }
 }
