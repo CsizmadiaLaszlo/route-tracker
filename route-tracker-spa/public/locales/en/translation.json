@@ -14,6 +14,11 @@
     "hourlyRate": "Hourly rate",
     "overtimeRate": "Overtime rate",
     "nightShiftRate" : "Night shift rate",
-    "save" : "Save"
+    "save" : "Save",
+    "title" : "Settings"
+  },
+  "home" : {
+    "newRoute": "New route",
+    "date": "{{date, DATE_HUGE}}"
   }
 }

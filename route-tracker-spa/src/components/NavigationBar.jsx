@@ -19,7 +19,7 @@ export const NavigationBar = () => {
     };
 
     return (
-        <div className="pb-10 flex w-full component-preview items-center justify-center gap-2 font-sans">
+        <div className="pb-2 flex w-full component-preview items-center justify-center gap-1 font-sans">
             <Navbar className={"shadow-xl rounded-box bg-base-300"}>
                 <Navbar.Start>
                     <Dropdown hover>
@@ -27,17 +27,17 @@ export const NavigationBar = () => {
                             <BiMenuAltLeft/>
                         </Button>
                         <Dropdown.Menu tabIndex={0} className="menu-compact w-52 rounded-box bg-base-300">
-                            <Dropdown.Item onClick={() => navigate("/")}>
+                            <Dropdown.Item className="hover-bordered" onClick={() => navigate("/")}>
                                 {t('navigationMenu.homepage')}
                             </Dropdown.Item>
-                            <Dropdown.Item>
+                            <Dropdown.Item className="hover-bordered">
                                 {t('navigationMenu.statistics')}
                             </Dropdown.Item>
                             <Divider></Divider>
-                            <Dropdown.Item onClick={() => navigate("/settings")}>
+                            <Dropdown.Item className="hover-bordered" onClick={() => navigate("/settings")}>
                                 {t('navigationMenu.settings')}
                             </Dropdown.Item>
-                            <Dropdown.Item onClick={handleLogoutPopup}>
+                            <Dropdown.Item className="hover-bordered" onClick={handleLogoutPopup}>
                                 {t('navigationMenu.logout')}
                             </Dropdown.Item>
                         </Dropdown.Menu>
