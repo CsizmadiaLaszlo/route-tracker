@@ -19,7 +19,7 @@ const LanguageSwitch = () => {
                 <>
                     {Object.keys(languages).map((language) => (
                         <Dropdown.Item key={language}
-                                       className={"ml-2"}
+                                       className={"ml-2 hover-bordered"}
                                        style={{fontWeight: i18n.resolvedLanguage === language ? 'bold' : 'normal'}}
                                        type="submit"
                                        onClick={() => handleLanguageChange(language)}>
