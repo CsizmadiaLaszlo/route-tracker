@@ -2,7 +2,6 @@ import {Form, Input, Progress} from "react-daisyui";
 import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
 import fetchWithToken from "../utils/fetchWithToken.js";
-import {loginRequest} from "../authConfig.js";
 import {useMsal} from "@azure/msal-react";
 import MockupWindow from "../components/MockupWindow.jsx";
 
@@ -14,24 +13,15 @@ const Settings = () => {
     const [overtimeRate, setOvertimeRate] = useState(0.00);
     const [nightShiftRate, setNightShiftRate] = useState(0.00);
 
-    const getAccessTokenSilenty = () => {
-        const request = {
-            ...loginRequest,
-            account: instance.getActiveAccount()
-        };
-        return instance.acquireTokenSilent(request);
-    }
-
     useEffect(() => {
-        getAccessTokenSilenty().then((response) => {
-            fetchWithToken(response.accessToken, "GET", "setting")
-                .then(data => {
-                    setHourlyRate(data['hourlyRate']);
-                    setOvertimeRate(data['overtimeRate']);
-                    setNightShiftRate(data['nightShiftRate']);
-                    setLoading(false);
-                })
-        });
+        fetchWithToken(instance, "GET", "setting")
+            .then(data => {
+                setHourlyRate(data['hourlyRate']);
+                setOvertimeRate(data['overtimeRate']);
+                setNightShiftRate(data['nightShiftRate']);
+                setLoading(false);
+            });
+
     }, [])
 
     const handleValueChange = (event) => {
@@ -53,9 +43,7 @@ const Settings = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = {HourlyRate: hourlyRate, OvertimeRate: overtimeRate, NightShiftRate: nightShiftRate};
-        getAccessTokenSilenty().then((response) => {
-            fetchWithToken(response.accessToken, "POST", "setting", data).then();
-        });
+        fetchWithToken(instance, "POST", "setting", data).then();
     }
 
     return (
