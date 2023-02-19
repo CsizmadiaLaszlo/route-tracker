@@ -2,11 +2,10 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import {PublicClientApplication, EventType} from '@azure/msal-browser';
-
 import './styles/index.css';
 import {msalConfig} from "./authConfig.js";
-import {registerNewUser} from "./utils/apiCalls.js";
 import './i18n';
+import fetchWithToken from "./utils/fetchWithToken.js";
 
 export const msalInstance = new PublicClientApplication(msalConfig);
 
@@ -18,17 +17,12 @@ if (!msalInstance.getActiveAccount() && msalInstance.getAllAccounts().length > 0
 }
 
 msalInstance.addEventCallback((event) => {
-    if (
-        (event.eventType === EventType.LOGIN_SUCCESS ||
-            event.eventType === EventType.ACQUIRE_TOKEN_SUCCESS ||
-            event.eventType === EventType.SSO_SILENT_SUCCESS) &&
-        event.payload.account
-    ) {
+    if (event.eventType === EventType.LOGIN_SUCCESS && event.payload.account) {
         msalInstance.setActiveAccount(event.payload.account);
 
         const newUser = event.payload.idTokenClaims.newUser === true
         if (newUser) {
-            registerNewUser(event.payload.accessToken).then();
+            fetchWithToken(msalInstance, "POST", "new-user", null, event.payload.accessToken).then();
         }
     }
 });
