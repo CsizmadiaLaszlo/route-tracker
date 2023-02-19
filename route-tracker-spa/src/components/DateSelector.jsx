@@ -1,12 +1,12 @@
-import DatePicker, {registerLocale} from "react-datepicker";
 import {forwardRef} from "react";
-import "react-datepicker/dist/react-datepicker.css";
-import {AiOutlineLeft, AiOutlineRight} from "react-icons/ai";
 import {useTranslation} from "react-i18next";
+import DatePicker, {registerLocale} from "react-datepicker";
+import {AiOutlineLeft, AiOutlineRight} from "react-icons/ai";
 import en from 'date-fns/locale/en-US';
 import de from 'date-fns/locale/de';
 import hu from 'date-fns/locale/hu';
 import {modfiyeDateDay} from "../utils/dateTools.js";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 const DateSelector = (props) => {
