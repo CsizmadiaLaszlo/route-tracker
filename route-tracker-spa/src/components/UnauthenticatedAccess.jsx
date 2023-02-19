@@ -1,7 +1,6 @@
 import {useTranslation} from 'react-i18next';
 import {useMsal} from "@azure/msal-react";
 import {Button, Hero} from "react-daisyui";
-
 import {loginRequest} from "../authConfig.js";
 import Container from "./Container.jsx";
 import {languages} from "../i18n.js";
