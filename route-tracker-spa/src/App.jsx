@@ -1,8 +1,5 @@
 import {AuthenticatedTemplate, MsalProvider, UnauthenticatedTemplate} from '@azure/msal-react';
-import {
-    createBrowserRouter,
-    RouterProvider,
-} from "react-router-dom";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {PageLayout} from './components/PageLayout';
 import {Home} from './pages/Home';
 import UnauthenticatedAccess from "./components/UnauthenticatedAccess.jsx";
@@ -16,7 +13,7 @@ const router = createBrowserRouter([
             {index: true, element: <Home/>},
             {
                 path: "/settings",
-                element: <Settings />,
+                element: <Settings/>,
             },
         ]
     },

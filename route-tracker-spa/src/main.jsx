@@ -1,9 +1,9 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
+import ReactDOM from 'react-dom';
 import App from './App'
 import {PublicClientApplication, EventType} from '@azure/msal-browser';
-import './styles/index.css';
 import {msalConfig} from "./authConfig.js";
+import './styles/index.css';
 import './i18n';
 import fetchWithToken from "./utils/fetchWithToken.js";
 

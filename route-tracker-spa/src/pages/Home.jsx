@@ -1,7 +1,7 @@
-import DateSelector from "../components/DateSelector.jsx";
-import MockupWindow from "../components/MockupWindow.jsx";
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
+import DateSelector from "../components/DateSelector.jsx";
+import MockupWindow from "../components/MockupWindow.jsx";
 
 export const Home = () => {
     const {t} = useTranslation();
