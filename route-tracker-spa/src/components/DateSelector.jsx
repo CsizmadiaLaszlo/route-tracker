@@ -1,13 +1,10 @@
 import {forwardRef} from "react";
 import {useTranslation} from "react-i18next";
-import DatePicker, {registerLocale} from "react-datepicker";
+import DatePicker from "react-datepicker";
 import {AiOutlineLeft, AiOutlineRight} from "react-icons/ai";
-import en from 'date-fns/locale/en-US';
-import de from 'date-fns/locale/de';
-import hu from 'date-fns/locale/hu';
 import {modfiyeDateDay} from "../utils/dateTools.js";
 import "react-datepicker/dist/react-datepicker.css";
-
+import setLocale from "../utils/setLocale.js";
 
 const DateSelector = (props) => {
     const {date, setDate} = props.date;
@@ -27,17 +24,7 @@ const DateSelector = (props) => {
         </div>
     ));
 
-    switch (i18n.language) {
-        case 'en':
-            registerLocale('en', en);
-            break
-        case 'hu':
-            registerLocale('hu', hu);
-            break
-        case 'de':
-            registerLocale('de', de);
-            break
-    }
+    setLocale(i18n.language);
 
     return (
         <DatePicker

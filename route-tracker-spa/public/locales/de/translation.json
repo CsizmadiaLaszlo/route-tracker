@@ -19,6 +19,11 @@
   },
   "home": {
     "newRoute": "Neue Route",
-    "date": "{{date, DATE_HUGE}}"
+    "date": "{{date, DATE_HUGE}}",
+    "time": "Zeit",
+    "from": "Von",
+    "to": "Bis",
+    "routeInputText": "Erstellen Sie eine neue Option",
+    "routeSelectionText": "Oder wählen Sie eine aus der Liste unten aus"
   }
 }
