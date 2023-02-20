@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 
 const RouteSelection = ({addNewRoute}) => {
     const {t} = useTranslation();
-    const [routes, setRoutes] = useState(mockRoutes);
+    const [routes] = useState([]);
 
     return (
         <>
