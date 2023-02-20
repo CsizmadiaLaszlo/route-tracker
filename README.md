@@ -1,7 +1,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This is a pet project to solve a real-life problem. My father and his friends work as truck drivers, and the company still uses a paper-based system to track working hours and routes. For this project, I first created an Excel spreadsheet that even calculates statistics for them, but with my new knowledge, I decided to create a website for them.
+I began this project with the goal of solving a real-world issue. Specifically, my father and his colleagues work as truck drivers for a company that still relies on a paper-based system to keep track of their work hours and routes. Initially, I created an Excel spreadsheet for them that included statistical calculations, but as I gained more knowledge and experience, I decided to develop a website instead.
 
 ### Built With
 
