@@ -7,7 +7,7 @@ const MockupWindow = (props) => {
                 </div>
             </div>
             <div className={"flex bg-base-200 w-full w-10 min-h-12 items-center justify-center "}>
-                <div className={"m-3"}>
+                <div className={"m-3 p-3"}>
                     {props.children}
                 </div>
             </div>
