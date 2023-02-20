@@ -19,6 +19,11 @@
   },
   "home": {
     "newRoute": "Új útvonal",
-    "date": "{{date, DATE_HUGE}}"
+    "date": "{{date, DATE_HUGE}}",
+    "time": "Idő",
+    "from": "Kezdés",
+    "to": "Vég",
+    "routeInputText": "Hozzon létre egy újat",
+    "routeSelectionText" : "Vagy válasszon az alábbi listából."
   }
 }
