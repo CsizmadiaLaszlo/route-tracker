@@ -19,6 +19,11 @@
   },
   "home" : {
     "newRoute": "New route",
-    "date": "{{date, DATE_HUGE}}"
+    "date": "{{date, DATE_HUGE}}",
+    "time": "Time",
+    "from": "From",
+    "to": "To",
+    "routeInputText": "Create a new one",
+    "routeSelectionText": "Or select one from the list below."
   }
 }
