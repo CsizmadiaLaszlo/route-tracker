@@ -2,7 +2,7 @@ import {useState} from "react";
 import {useTranslation} from "react-i18next";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import setLocale from "../utils/setLocale.js";
+import setLocale from "../../../utils/setLocale.js";
 
 const TimeSelector = (props) => {
     const {i18n, t} = useTranslation();

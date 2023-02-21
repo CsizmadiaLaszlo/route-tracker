@@ -1,11 +1,11 @@
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
-import DateSelector from "../components/DateSelector.jsx";
-import MockupWindow from "../components/MockupWindow.jsx";
-import TimeSelector from "../components/TimeSelector.jsx";
-import ShowRoutes from "../components/ShowRoutes.jsx";
-import NewRouteInput from "../components/NewRouteInput.jsx";
-import RouteSelection from "../components/RouteSelection.jsx";
+import DateSelector from "../components/home/DateSelector.jsx";
+import MockupWindow from "../components/shared/MockupWindow.jsx";
+import TimeSelector from "../components/home/newRoute/TimeSelector.jsx";
+import ShowRoutes from "../components/home/newRoute/ShowRoutes.jsx";
+import NewRouteInput from "../components/home/newRoute/NewRouteInput.jsx";
+import RouteSelection from "../components/home/newRoute/RouteSelection.jsx";
 
 export const Home = () => {
     const {t} = useTranslation();

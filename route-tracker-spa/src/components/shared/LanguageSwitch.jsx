@@ -1,7 +1,7 @@
 import {useTranslation} from "react-i18next";
 import {HiLanguage} from "react-icons/hi2";
 import {Button, Dropdown} from "react-daisyui";
-import {languages} from "../i18n.js";
+import {languages} from "../../i18n.js";
 
 const LanguageSwitch = () => {
     const {i18n} = useTranslation();
