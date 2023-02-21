@@ -23,7 +23,6 @@ export const Home = () => {
         <div className={"flex flex-wrap"}>
             <div className={"w-2/3 flex-auto m-1"}>
                 <MockupWindow titleContainer={<DateSelector date={{date, setDate}}/>}>
-                    <p>placeholder</p>
                 </MockupWindow>
             </div>
             <div className={"w-96 m-1 flex-auto text-center"}>
