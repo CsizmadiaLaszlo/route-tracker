@@ -43,7 +43,7 @@ const Settings = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = {HourlyRate: hourlyRate, OvertimeRate: overtimeRate, NightShiftRate: nightShiftRate};
-        fetchWithToken(instance, "POST", "setting", data).then();
+        fetchWithToken(instance, "PUT", "setting", data).then();
     }
 
     return (
