@@ -3,6 +3,11 @@
 
 I began this project with the goal of solving a real-world issue. Specifically, my father and his colleagues work as truck drivers for a company that still relies on a paper-based system to keep track of their work hours and routes. Initially, I created an Excel spreadsheet for them that included statistical calculations, but as I gained more knowledge and experience, I decided to develop a website instead.
 
+<!-- Hosting -->
+## Hosting
+
+It relies heavily on Azure AD for authentication and authorization, which means that it cannot be run by others without access to the necessary credentials. The project will be hosted soon and accessible to the public. Stay tuned for updates on how to access it.
+
 ### Built With
 
 * ![.Net](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
