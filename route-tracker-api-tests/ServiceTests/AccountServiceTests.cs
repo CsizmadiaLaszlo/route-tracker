@@ -47,5 +47,23 @@ namespace route_tracker_api_tests.ServiceTests
             // Act + Assert
             Assert.ThrowsAsync<InvalidOperationException>(() => _accountService.AddAccount(Oid));
         }
+
+        [Test]
+        public async Task GetAccountSetting_ValidOid_ReturnsSetting()
+        {
+            // Arrange
+            var setting = new Setting { HourlyRate = 1, OvertimeRate = 1, NightShiftRate = 1 };
+            var account = new Account { ObjectIdentifier = Oid, Setting = setting };
+            await _context.Accounts.AddAsync(account);
+            await _context.SaveChangesAsync();
+
+            // Act
+            var result = await _accountService.GetAccountSetting(Oid);
+
+            // Assert
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.EqualTo(setting));
+        }
+        
     }
 }
