@@ -122,5 +122,20 @@ namespace route_tracker_api_tests.ControllerTests
             Assert.That(createdAtActionResult!.Value, Is.EqualTo(expectedSetting));
         }
         
+        [Test]
+        public async Task UpdateAccountSetting_InvalidSetting_ThrowsInvalidOperationException()
+        {
+            // Arrange
+            _accountServiceMock.Setup(x => x.UpdateAccountSetting(It.IsAny<string>(), It.IsAny<Setting>()))
+                .Throws<InvalidOperationException>();
+
+            // Act
+            var result = await _controller.UpdateAccountSetting(It.IsAny<Setting>());
+
+            // Assert
+            Assert.That(result, Is.InstanceOf<BadRequestObjectResult>());
+            var badRequestResult = result as BadRequestObjectResult;
+            Assert.That(badRequestResult!.Value, Is.EqualTo("Unable to update account setting: account not found."));
+        }
     }
 }
