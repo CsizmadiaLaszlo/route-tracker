@@ -95,5 +95,14 @@ namespace route_tracker_api_tests.ServiceTests
             });
         }
         
+        [Test]
+        public void UpdateAccountSetting_ShouldThrowException_WhenAccountDoesNotExist()
+        {
+            // Arrange
+            var newSetting = new Setting();
+        
+            // Act + Assert
+            Assert.ThrowsAsync<InvalidOperationException>(() => _accountService.UpdateAccountSetting(Oid, newSetting));
+        }
     }
 }
