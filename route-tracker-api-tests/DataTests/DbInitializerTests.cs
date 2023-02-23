@@ -7,37 +7,59 @@ namespace route_tracker_api_tests.DataTests;
 [TestFixture]
 public class DbInitializerTests
 {
+    private RouteTrackerApiContext _context = null!;
+
+    [SetUp]
+    public void Setup()
+    {
+        var options = new DbContextOptionsBuilder<RouteTrackerApiContext>()
+            .UseInMemoryDatabase(databaseName: "TestDb")
+            .Options;
+        _context = new RouteTrackerApiContext(options);
+    }
+
+
     [Test]
     public void TestDbInitialization()
     {
-        // Arrange
-        var options = new DbContextOptionsBuilder<RouteTrackerApiContext>()
-            .UseInMemoryDatabase(databaseName: "TestDbInitialization")
-            .Options;
-
-        using var context = new RouteTrackerApiContext(options);
         // Act
-        DbInitializer.Initialize(context);
+        DbInitializer.Initialize(_context);
 
         // Assert
-        Assert.That(context.Database.EnsureCreated(), Is.False);
+        Assert.That(_context.Database.EnsureCreated(), Is.False);
     }
 
     [Test]
     public void TestNoActionWhenTablesExist()
     {
         // Arrange
-        var options = new DbContextOptionsBuilder<RouteTrackerApiContext>()
-            .UseInMemoryDatabase(databaseName: "NoActionWhenTablesExistTestDb")
-            .Options;
-        var context = new RouteTrackerApiContext(options);
-        context.Accounts.Add(new Account(){ObjectIdentifier = "test-oid"});
-        context.SaveChanges();
+        _context.Accounts.Add(new Account() { ObjectIdentifier = "test-oid" });
+        _context.SaveChanges();
 
         // Act
-        DbInitializer.Initialize(context);
+        DbInitializer.Initialize(_context);
 
         // Assert
-        Assert.That(context.Accounts.Count(), Is.EqualTo(1));
+        Assert.That(_context.Accounts.Count(), Is.EqualTo(1));
+    }
+
+    [Test]
+    public void TestAccountsExist()
+    {
+        // Arrange + Act
+        var accounts = _context.Accounts;
+
+        // Assert
+        Assert.That(accounts, Is.Not.Null);
+    }
+    
+    [Test]
+    public void TestSettingsExist()
+    {
+        // Arrange + Act
+        var settings = _context.Settings;
+
+        // Assert
+        Assert.That(settings, Is.Not.Null);
     }
 }
