@@ -65,5 +65,35 @@ namespace route_tracker_api_tests.ServiceTests
             Assert.That(result, Is.EqualTo(setting));
         }
         
+        [Test]
+        public void GetAccountSetting_InvalidOid_ThrowsException()
+        {
+            // Act + Assert
+            Assert.ThrowsAsync<InvalidOperationException>(() => _accountService.GetAccountSetting(Oid));
+        }
+        
+        [Test]
+        public async Task UpdateAccountSetting_ShouldUpdateAccountSetting()
+        {
+            // Arrange
+            var setting = new Setting { HourlyRate = 1, OvertimeRate = 1, NightShiftRate = 1 };
+            var account = new Account { ObjectIdentifier = Oid, Setting = setting };
+            await _context.Accounts.AddAsync(account);
+            await _context.SaveChangesAsync();
+
+            var newSetting = new Setting { HourlyRate = 10, OvertimeRate = 10, NightShiftRate = 10 };
+        
+            // Act
+            var updatedSetting = await _accountService.UpdateAccountSetting(Oid, newSetting);
+            
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(updatedSetting.HourlyRate, Is.EqualTo(newSetting.HourlyRate));
+                Assert.That(updatedSetting.OvertimeRate, Is.EqualTo(newSetting.OvertimeRate));
+                Assert.That(updatedSetting.NightShiftRate, Is.EqualTo(newSetting.NightShiftRate));
+            });
+        }
+        
     }
 }
