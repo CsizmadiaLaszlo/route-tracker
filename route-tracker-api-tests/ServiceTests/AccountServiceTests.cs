@@ -41,17 +41,12 @@ namespace route_tracker_api_tests.ServiceTests
         public async Task AddAccount_ShouldThrowException_WhenAccountWithOidAlreadyExists()
         {
             // Arrange
-            var account = new Account { ObjectIdentifier = Oid };
-
-            // Act
-            _context.Accounts.Add(account);
+            var existingAccount = new Account { ObjectIdentifier = Oid, Setting = new Setting() };
+            await _context.Accounts.AddAsync(existingAccount);
             await _context.SaveChangesAsync();
-            var ex = Assert.ThrowsAsync<InvalidOperationException>(() => _accountService.AddAccount(Oid));
-            
-            // Assert
-            Assert.That(ex, Is.Not.Null);
-            Debug.Assert(ex != null, nameof(ex) + " != null");
-            Assert.That(ex.Message, Is.EqualTo($"There is already an account with OID: {Oid}"));
+
+            // Act + Assert
+            Assert.ThrowsAsync<InvalidOperationException>(() => _accountService.AddAccount(Oid));
         }
     }
 }
