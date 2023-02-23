@@ -88,5 +88,21 @@ namespace route_tracker_api_tests.ControllerTests
             Assert.That(okResult!.Value, Is.EqualTo(expectedSetting));
         }
 
+        [Test]
+        public async Task GetAccountSetting_ThrowsInvalidOperationException_WhenAccountDoesNotExist()
+        {
+            // Arrange
+            _accountServiceMock.Setup(x => x.GetAccountSetting(It.IsAny<string>()))
+                .Throws<InvalidOperationException>();
+
+            // Act
+            var result = await _controller.GetAccountSetting();
+
+            // Assert
+            Assert.That(result, Is.InstanceOf<BadRequestObjectResult>());
+            var badRequestResult = result as BadRequestObjectResult;
+            Assert.That(badRequestResult!.Value, Is.EqualTo("Unable to retrieve account setting: account not found."));
+        }
+
     }
 }
