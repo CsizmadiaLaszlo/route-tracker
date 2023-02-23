@@ -21,7 +21,7 @@ namespace route_tracker_api_tests.ControllerTests
         {
             _accountServiceMock = new Mock<IAccountService>();
             _claimsPrincipalMock = new Mock<ClaimsPrincipal>();
-            
+
             var claims = new List<Claim>
             {
                 new("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", "12345")
@@ -104,5 +104,23 @@ namespace route_tracker_api_tests.ControllerTests
             Assert.That(badRequestResult!.Value, Is.EqualTo("Unable to retrieve account setting: account not found."));
         }
 
+        [Test]
+        public async Task UpdateAccountSetting_ValidSetting_ReturnsUpdatedSetting()
+        {
+            // Arrange
+            var expectedSetting = new Setting();
+            // var account = new Account { Setting = expectedSetting };
+            _accountServiceMock.Setup(x => x.UpdateAccountSetting(It.IsAny<string>(), expectedSetting))
+                .ReturnsAsync(expectedSetting);
+
+            // Act
+            var result = await _controller.UpdateAccountSetting(expectedSetting);
+
+            // Assert
+            Assert.That(result, Is.InstanceOf<CreatedAtActionResult>());
+            var createdAtActionResult = result as CreatedAtActionResult;
+            Assert.That(createdAtActionResult!.Value, Is.EqualTo(expectedSetting));
+        }
+        
     }
 }
