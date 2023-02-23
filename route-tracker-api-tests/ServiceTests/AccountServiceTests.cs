@@ -11,7 +11,7 @@ namespace route_tracker_api_tests.ServiceTests
     {
         private RouteTrackerApiContext _context = null!;
         private AccountService _accountService = null!;
-        private const string Oid = "oid1";
+        private const string Oid = "7bc52719-edc9-4185-80bf";
 
         [SetUp]
         public void SetUp()
