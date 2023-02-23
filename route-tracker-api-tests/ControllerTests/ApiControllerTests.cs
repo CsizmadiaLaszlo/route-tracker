@@ -70,5 +70,23 @@ namespace route_tracker_api_tests.ControllerTests
             // Assert
             Assert.That(conflictResult, Is.Not.Null, "Expected ConflictObjectResult");
         }
+
+        [Test]
+        public async Task GetAccountSetting_ReturnsOk_WhenSettingExists()
+        {
+            // Arrange
+            var expectedSetting = new Setting();
+            var account = new Account { Setting = expectedSetting };
+            _accountServiceMock.Setup(x => x.GetAccountSetting(It.IsAny<string>())).ReturnsAsync(account.Setting);
+
+            // Act
+            var result = await _controller.GetAccountSetting();
+
+            // Assert
+            Assert.That(result, Is.InstanceOf<OkObjectResult>());
+            var okResult = result as OkObjectResult;
+            Assert.That(okResult!.Value, Is.EqualTo(expectedSetting));
+        }
+
     }
 }
