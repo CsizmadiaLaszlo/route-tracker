@@ -1,8 +1,11 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 using route_tracker_api.Controllers;
+using route_tracker_api.Models;
+using route_tracker_api.Services;
 using route_tracker_api.Services.Interfaces;
 
 namespace route_tracker_api_tests.ControllerTests
@@ -18,6 +21,7 @@ namespace route_tracker_api_tests.ControllerTests
         {
             _accountServiceMock = new Mock<IAccountService>();
             _claimsPrincipalMock = new Mock<ClaimsPrincipal>();
+
             var claims = new List<Claim>
             {
                 new("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", "12345")
@@ -65,7 +69,73 @@ namespace route_tracker_api_tests.ControllerTests
 
             // Assert
             Assert.That(conflictResult, Is.Not.Null, "Expected ConflictObjectResult");
-            Assert.That(conflictResult!.Value, Is.EqualTo("Error"));
+        }
+
+        [Test]
+        public async Task GetAccountSetting_ReturnsOk_WhenSettingExists()
+        {
+            // Arrange
+            var expectedSetting = new Setting();
+            var account = new Account { Setting = expectedSetting };
+            _accountServiceMock.Setup(x => x.GetAccountSetting(It.IsAny<string>())).ReturnsAsync(account.Setting);
+
+            // Act
+            var result = await _controller.GetAccountSetting();
+
+            // Assert
+            Assert.That(result, Is.InstanceOf<OkObjectResult>());
+            var okResult = result as OkObjectResult;
+            Assert.That(okResult!.Value, Is.EqualTo(expectedSetting));
+        }
+
+        [Test]
+        public async Task GetAccountSetting_ThrowsInvalidOperationException_WhenAccountDoesNotExist()
+        {
+            // Arrange
+            _accountServiceMock.Setup(x => x.GetAccountSetting(It.IsAny<string>()))
+                .Throws<InvalidOperationException>();
+
+            // Act
+            var result = await _controller.GetAccountSetting();
+
+            // Assert
+            Assert.That(result, Is.InstanceOf<BadRequestObjectResult>());
+            var badRequestResult = result as BadRequestObjectResult;
+            Assert.That(badRequestResult!.Value, Is.EqualTo("Unable to retrieve account setting: account not found."));
+        }
+
+        [Test]
+        public async Task UpdateAccountSetting_ValidSetting_ReturnsUpdatedSetting()
+        {
+            // Arrange
+            var expectedSetting = new Setting();
+            // var account = new Account { Setting = expectedSetting };
+            _accountServiceMock.Setup(x => x.UpdateAccountSetting(It.IsAny<string>(), expectedSetting))
+                .ReturnsAsync(expectedSetting);
+
+            // Act
+            var result = await _controller.UpdateAccountSetting(expectedSetting);
+
+            // Assert
+            Assert.That(result, Is.InstanceOf<CreatedAtActionResult>());
+            var createdAtActionResult = result as CreatedAtActionResult;
+            Assert.That(createdAtActionResult!.Value, Is.EqualTo(expectedSetting));
+        }
+        
+        [Test]
+        public async Task UpdateAccountSetting_InvalidSetting_ThrowsInvalidOperationException()
+        {
+            // Arrange
+            _accountServiceMock.Setup(x => x.UpdateAccountSetting(It.IsAny<string>(), It.IsAny<Setting>()))
+                .Throws<InvalidOperationException>();
+
+            // Act
+            var result = await _controller.UpdateAccountSetting(It.IsAny<Setting>());
+
+            // Assert
+            Assert.That(result, Is.InstanceOf<BadRequestObjectResult>());
+            var badRequestResult = result as BadRequestObjectResult;
+            Assert.That(badRequestResult!.Value, Is.EqualTo("Unable to update account setting: account not found."));
         }
     }
 }

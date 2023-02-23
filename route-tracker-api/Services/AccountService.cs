@@ -27,9 +27,9 @@ public class AccountService : IAccountService
         var account = await GetAccountByOid(oid);
         if (account is not null)
         {
-            throw new InvalidOperationException($"There is already an account with OID: {oid}");
+            throw new InvalidOperationException();
         }
-
+        
         await _context.Accounts.AddAsync(new Account() { ObjectIdentifier = oid, Setting = new Setting() });
         await _context.SaveChangesAsync();
     }
@@ -53,6 +53,6 @@ public class AccountService : IAccountService
     private async Task<Account> GetAccountByOid(string oid)
     {
         return (await _context.Accounts.Include(account => account.Setting)
-            .FirstOrDefaultAsync(account => account.ObjectIdentifier == oid) ?? null)!;
+            .FirstOrDefaultAsync(account => account.ObjectIdentifier == oid))!;
     }
 }

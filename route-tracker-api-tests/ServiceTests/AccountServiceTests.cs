@@ -11,7 +11,7 @@ namespace route_tracker_api_tests.ServiceTests
     {
         private RouteTrackerApiContext _context = null!;
         private AccountService _accountService = null!;
-        private const string Oid = "oid1";
+        private const string Oid = "7bc52719-edc9-4185-80bf";
 
         [SetUp]
         public void SetUp()
@@ -33,25 +33,76 @@ namespace route_tracker_api_tests.ServiceTests
 
             // Assert
             Assert.That(account, Is.Not.Null);
-            Debug.Assert(account != null, nameof(account) + " != null");
-            Assert.That(account.ObjectIdentifier, Is.EqualTo(Oid));
+            Assert.That(account!.ObjectIdentifier, Is.EqualTo(Oid));
         }
 
         [Test]
         public async Task AddAccount_ShouldThrowException_WhenAccountWithOidAlreadyExists()
         {
             // Arrange
-            var account = new Account { ObjectIdentifier = Oid };
+            var existingAccount = new Account { ObjectIdentifier = Oid, Setting = new Setting() };
+            await _context.Accounts.AddAsync(existingAccount);
+            await _context.SaveChangesAsync();
+
+            // Act + Assert
+            Assert.ThrowsAsync<InvalidOperationException>(() => _accountService.AddAccount(Oid));
+        }
+
+        [Test]
+        public async Task GetAccountSetting_ValidOid_ReturnsSetting()
+        {
+            // Arrange
+            var setting = new Setting { HourlyRate = 1, OvertimeRate = 1, NightShiftRate = 1 };
+            var account = new Account { ObjectIdentifier = Oid, Setting = setting };
+            await _context.Accounts.AddAsync(account);
+            await _context.SaveChangesAsync();
 
             // Act
-            _context.Accounts.Add(account);
+            var result = await _accountService.GetAccountSetting(Oid);
+
+            // Assert
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.EqualTo(setting));
+        }
+        
+        [Test]
+        public void GetAccountSetting_InvalidOid_ThrowsException()
+        {
+            // Act + Assert
+            Assert.ThrowsAsync<InvalidOperationException>(() => _accountService.GetAccountSetting(Oid));
+        }
+        
+        [Test]
+        public async Task UpdateAccountSetting_ShouldUpdateAccountSetting()
+        {
+            // Arrange
+            var setting = new Setting { HourlyRate = 1, OvertimeRate = 1, NightShiftRate = 1 };
+            var account = new Account { ObjectIdentifier = Oid, Setting = setting };
+            await _context.Accounts.AddAsync(account);
             await _context.SaveChangesAsync();
-            var ex = Assert.ThrowsAsync<InvalidOperationException>(() => _accountService.AddAccount(Oid));
+
+            var newSetting = new Setting { HourlyRate = 10, OvertimeRate = 10, NightShiftRate = 10 };
+        
+            // Act
+            var updatedSetting = await _accountService.UpdateAccountSetting(Oid, newSetting);
             
             // Assert
-            Assert.That(ex, Is.Not.Null);
-            Debug.Assert(ex != null, nameof(ex) + " != null");
-            Assert.That(ex.Message, Is.EqualTo($"There is already an account with OID: {Oid}"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(updatedSetting.HourlyRate, Is.EqualTo(newSetting.HourlyRate));
+                Assert.That(updatedSetting.OvertimeRate, Is.EqualTo(newSetting.OvertimeRate));
+                Assert.That(updatedSetting.NightShiftRate, Is.EqualTo(newSetting.NightShiftRate));
+            });
+        }
+        
+        [Test]
+        public void UpdateAccountSetting_ShouldThrowException_WhenAccountDoesNotExist()
+        {
+            // Arrange
+            var newSetting = new Setting();
+        
+            // Act + Assert
+            Assert.ThrowsAsync<InvalidOperationException>(() => _accountService.UpdateAccountSetting(Oid, newSetting));
         }
     }
 }
