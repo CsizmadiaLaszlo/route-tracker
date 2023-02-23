@@ -5,8 +5,8 @@ namespace route_tracker_api.Data;
 
 public class RouteTrackerApiContext : DbContext
 {
-    public DbSet<Account> Accounts { get; set; } = null!;
-    public DbSet<Setting> Settings { get; set; } = null!;
+    public DbSet<Account> Accounts { get; init; } = null!;
+    public DbSet<Setting> Settings { get; init; } = null!;
 
     public RouteTrackerApiContext(DbContextOptions<RouteTrackerApiContext> options) : base(options)
     {
