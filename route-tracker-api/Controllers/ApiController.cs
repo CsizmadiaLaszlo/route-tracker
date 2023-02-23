@@ -40,7 +40,7 @@ public class ApiController : ControllerBase
         }
         catch (InvalidOperationException e)
         {
-            return Conflict($"{e.Message}");
+            return Conflict($"Unable to add account: account with oid: {Oid}, already exist.");
         }
 
         return Ok();
@@ -50,15 +50,29 @@ public class ApiController : ControllerBase
     [Route("setting")]
     public async Task<ActionResult> GetAccountSetting()
     {
-        var setting = await _accountService.GetAccountSetting(Oid);
-        return Ok(setting);
+        try
+        {
+            var setting = await _accountService.GetAccountSetting(Oid);
+            return Ok(setting);
+        }
+        catch (InvalidOperationException e)
+        {
+            return BadRequest("Unable to retrieve account setting: account not found.");
+        }
     }
 
     [HttpPut]
     [Route("setting")]
     public async Task<ActionResult> UpdateAccountSetting([FromBody] Setting setting)
     {
-        var newSetting = await _accountService.UpdateAccountSetting(Oid, setting);
-        return CreatedAtAction("UpdateAccountSetting",newSetting);
+        try
+        {
+            var newSetting = await _accountService.UpdateAccountSetting(Oid, setting);
+            return CreatedAtAction("UpdateAccountSetting",newSetting);
+        }
+        catch (InvalidOperationException e)
+        {
+            return BadRequest("Unable to update account setting: account not found.");
+        }
     }
 }
