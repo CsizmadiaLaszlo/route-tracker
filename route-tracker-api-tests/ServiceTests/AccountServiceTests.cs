@@ -33,8 +33,7 @@ namespace route_tracker_api_tests.ServiceTests
 
             // Assert
             Assert.That(account, Is.Not.Null);
-            Debug.Assert(account != null, nameof(account) + " != null");
-            Assert.That(account.ObjectIdentifier, Is.EqualTo(Oid));
+            Assert.That(account!.ObjectIdentifier, Is.EqualTo(Oid));
         }
 
         [Test]
