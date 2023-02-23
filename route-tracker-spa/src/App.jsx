@@ -1,8 +1,8 @@
 import {AuthenticatedTemplate, MsalProvider, UnauthenticatedTemplate} from '@azure/msal-react';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import {PageLayout} from './components/PageLayout';
+import {PageLayout} from './components/shared/PageLayout.jsx';
 import {Home} from './pages/Home';
-import UnauthenticatedAccess from "./components/UnauthenticatedAccess.jsx";
+import UnauthenticatedAccess from "./components/shared/UnauthenticatedAccess.jsx";
 import Settings from "./pages/Settings.jsx";
 
 const router = createBrowserRouter([

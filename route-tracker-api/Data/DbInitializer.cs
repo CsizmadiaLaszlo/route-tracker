@@ -9,13 +9,6 @@ public static class DbInitializer
     {
         // Create DB if not exist
         context.Database.EnsureCreated();
-
-        // Look for tables, if any, no action
-        if (context.Accounts.Any() || context.Settings.Any())
-        {
-            return;
-        }
-
         context.SaveChanges();
     }
 }

@@ -54,7 +54,7 @@ public class ApiController : ControllerBase
         return Ok(setting);
     }
 
-    [HttpPost]
+    [HttpPut]
     [Route("setting")]
     public async Task<ActionResult> UpdateAccountSetting([FromBody] Setting setting)
     {

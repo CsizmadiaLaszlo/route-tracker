@@ -2,9 +2,9 @@ import {forwardRef} from "react";
 import {useTranslation} from "react-i18next";
 import DatePicker from "react-datepicker";
 import {AiOutlineLeft, AiOutlineRight} from "react-icons/ai";
-import {modfiyeDateDay} from "../utils/dateTools.js";
+import {modfiyeDateDay} from "../../utils/dateTools.js";
 import "react-datepicker/dist/react-datepicker.css";
-import setLocale from "../utils/setLocale.js";
+import setLocale from "../../utils/setLocale.js";
 
 const DateSelector = (props) => {
     const {date, setDate} = props.date;

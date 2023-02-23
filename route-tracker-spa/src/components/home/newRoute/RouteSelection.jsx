@@ -1,10 +1,11 @@
 import {Badge} from "react-daisyui";
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
+import {mockRoutes} from "../../../backEndDataMock.js";
 
 const RouteSelection = ({addNewRoute}) => {
     const {t} = useTranslation();
-    const [routes] = useState([]);
+    const [routes] = useState(mockRoutes);
 
     return (
         <>

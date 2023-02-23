@@ -3,7 +3,7 @@ import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
 import fetchWithToken from "../utils/fetchWithToken.js";
 import {useMsal} from "@azure/msal-react";
-import MockupWindow from "../components/MockupWindow.jsx";
+import MockupWindow from "../components/shared/MockupWindow.jsx";
 
 const Settings = () => {
     const {t} = useTranslation();
@@ -43,7 +43,7 @@ const Settings = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = {HourlyRate: hourlyRate, OvertimeRate: overtimeRate, NightShiftRate: nightShiftRate};
-        fetchWithToken(instance, "POST", "setting", data).then();
+        fetchWithToken(instance, "PUT", "setting", data).then();
     }
 
     return (
