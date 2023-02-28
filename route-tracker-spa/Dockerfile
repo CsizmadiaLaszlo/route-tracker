@@ -1,7 +1,7 @@
 FROM node
-WORKDIR /usr/src/app
-COPY ./route-tracker-spa/package.json .
+WORKDIR /app
+COPY package.json .
 RUN npm i
-COPY ./route-tracker-spa/ .
+COPY . .
 EXPOSE 3000
 CMD ["npm", "run", "preview"]

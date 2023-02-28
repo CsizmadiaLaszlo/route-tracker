@@ -5,10 +5,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["route-tracker-api/route-tracker-api.csproj", "route-tracker-api/"]
-RUN dotnet restore "route-tracker-api/route-tracker-api.csproj"
+COPY ["route-tracker-api.csproj", "./"]
+RUN dotnet restore "route-tracker-api.csproj"
 COPY . .
-WORKDIR "/src/route-tracker-api"
+WORKDIR "/src/"
 RUN dotnet build "route-tracker-api.csproj" -c Release -o /app/build
 
 FROM build AS publish
