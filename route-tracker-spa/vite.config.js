@@ -15,6 +15,22 @@ export const config = {
       }
     }
   },
+  preview: {
+    watch: {
+      usePolling: true,
+    },
+    host: true,
+    strictPort: true,
+    port: 3000,
+    proxy: {
+      '/api': {
+        target: "http://backend:80",
+        changeOrigin: true,
+        secure: false,
+      }
+    }
+  },
 };
 
+// noinspection JSCheckFunctionSignatures
 export default defineConfig(config);
