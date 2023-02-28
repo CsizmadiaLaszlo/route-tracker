@@ -1,0 +1,4 @@
+build:
+  docker:
+    backend: route-tracker-api/Dockerfile
+    frontend: route-tracker-spa/Dockerfile
