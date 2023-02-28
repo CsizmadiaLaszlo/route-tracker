@@ -1,18 +1,21 @@
-name: Deploy api to Heroku
+name: Deploy api to heroku
 
 on:
   workflow_dispatch: # Manually trigger workflow
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Heroku Docker Container Deploy
-      uses: lucassarcanjo/heroku-deploy@2.1.17
-      with:
-        email: ${{ secrets.HEROKU_EMAIL }}
-        api_key: ${{ secrets.HEROKU_API_KEY }}
-        app_name: routetracker-api
-        dockerfile_path: ./route-tracker-api
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build, Push and Release the api container to Heroku.
+        uses: gonuit/heroku-docker-deploy@v1.3.3
+        with:
+          email: ${{ secrets.HEROKU_EMAIL }}
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: routetracker-api
+          dockerfile_directory: ./route-tracker-api
+          dockerfile_name: Dockerfile
+          docker_options: "--no-cache"
+          process_type: web
