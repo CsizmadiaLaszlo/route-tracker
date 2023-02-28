@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using route_tracker_api.Data;
@@ -57,4 +58,12 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+if (app.Environment.IsDevelopment())
+{
+    app.Run();
+}
+else
+{
+    var port = Environment.GetEnvironmentVariable("PORT");
+    app.Run($"http://*:{port}");
+}
