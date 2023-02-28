@@ -17,9 +17,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         },
         options => { builder.Configuration.Bind("AzureAdB2C", options); });
 
+
+// Configure the connection string.
+var connectionString = builder.Environment.IsDevelopment()
+    ? builder.Configuration.GetConnectionString("DefaultConnectionString")
+    : Environment.GetEnvironmentVariable("DefaultConnectionString");
+
 builder.Services.AddDbContext<RouteTrackerApiContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection") ??
-                      throw new InvalidOperationException("Connection string not found!")));
+    options.UseNpgsql(connectionString ?? throw new InvalidOperationException("Connection string not found!")));
 
 builder.Services.AddScoped<RouteTrackerApiContext, RouteTrackerApiContext>();
 builder.Services.AddScoped<IAccountService, AccountService>();
@@ -46,8 +51,6 @@ using (var scope = app.Services.CreateScope())
 
     DbInitializer.Initialize(context);
 }
-
-app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
