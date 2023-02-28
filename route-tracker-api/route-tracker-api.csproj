@@ -6,6 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>aspnet-route_tracker_api-4A126834-4670-400F-AC51-16A4E1353856</UserSecretsId>
         <RootNamespace>route_tracker_api</RootNamespace>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>
