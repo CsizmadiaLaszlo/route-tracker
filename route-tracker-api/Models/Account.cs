@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+// ReSharper disable PropertyCanBeMadeInitOnly.Global
+
 namespace route_tracker_api.Models;
 
 /// <summary>
@@ -15,8 +17,8 @@ public class Account
     /// Object identifier (ID) of the user object in Azure AD
     /// </summary>
     [Required]
-    public string ObjectIdentifier { get; init; } = null!;
-    
-    [Required]
+    public string ObjectIdentifier { get; set; } = null!;
+
+    [Required] 
     public Setting Setting { get; set; } = null!;
 }
