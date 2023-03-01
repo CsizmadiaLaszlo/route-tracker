@@ -4,26 +4,29 @@
     "info": "You must login in order to use the website",
     "button": "login"
   },
-  "navigationMenu" : {
-    "homepage" : "Homepage",
-    "statistics" : "Statistics",
-    "settings" : "Settings",
+  "navigationMenu": {
+    "homepage": "Homepage",
+    "statistics": "Statistics",
+    "settings": "Settings",
     "logout": "Logout"
   },
   "settings": {
     "hourlyRate": "Hourly rate",
     "overtimeRate": "Overtime rate",
-    "nightShiftRate" : "Night shift rate",
-    "save" : "Save",
-    "title" : "Settings"
+    "nightShiftRate": "Night shift rate",
+    "save": "Save",
+    "title": "Settings"
   },
-  "home" : {
+  "home": {
     "newRoute": "New route",
     "date": "{{date, DATE_HUGE}}",
     "time": "Time",
     "from": "From",
     "to": "To",
     "routeInputText": "Create a new one",
-    "routeSelectionText": "Or select one from the list below."
+    "routeSelectionText": "Or select one from the list below.",
+    "waypoint": "Waypoint",
+    "plate": "Plate",
+    "save": "Save"
   }
 }
