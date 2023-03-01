@@ -4,18 +4,18 @@
     "info": "Sie müssen sich anmelden, um die Website zu nutzen.",
     "button": "anmeldung"
   },
-  "navigationMenu" : {
-    "homepage" : "Startseite",
-    "statistics" : "Statistiken",
-    "settings" : "Einstellungen",
+  "navigationMenu": {
+    "homepage": "Startseite",
+    "statistics": "Statistiken",
+    "settings": "Einstellungen",
     "logout": "Abmelden"
   },
   "settings": {
     "hourlyRate": "Stundensatz",
     "overtimeRate": "Überstundensatz",
-    "nightShiftRate" : "Nachtzuschlag",
-    "save" : "Speichern",
-    "title" : "Einstellungen"
+    "nightShiftRate": "Nachtzuschlag",
+    "save": "Speichern",
+    "title": "Einstellungen"
   },
   "home": {
     "newRoute": "Neue Route",
@@ -24,6 +24,9 @@
     "from": "Von",
     "to": "Bis",
     "routeInputText": "Erstellen Sie eine neue Option",
-    "routeSelectionText": "Oder wählen Sie eine aus der Liste unten aus"
+    "routeSelectionText": "Oder wählen Sie eine aus der Liste unten aus",
+    "waypoint": "Wegpunkt",
+    "plate": "Kennzeichen",
+    "save": "Speichern"
   }
 }
