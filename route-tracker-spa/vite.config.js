@@ -21,10 +21,10 @@ export const config = {
     },
     host: true,
     strictPort: true,
-    port: 3000,
+    port: process.env.PORT,
     proxy: {
       '/api': {
-        target: "http://backend:80",
+        target: "https://routetracker-api.herokuapp.com",
         changeOrigin: true,
         secure: false,
       }
