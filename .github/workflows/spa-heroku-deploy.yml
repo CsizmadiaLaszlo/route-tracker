@@ -1,0 +1,21 @@
+name: Deploy spa to heroku
+
+on:
+  workflow_dispatch: # Manually trigger workflow
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build, Push and Release the api container to Heroku.
+        uses: gonuit/heroku-docker-deploy@v1.3.3
+        with:
+          email: ${{ secrets.HEROKU_EMAIL }}
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: routetracker
+          dockerfile_directory: ./route-tracker-spa
+          dockerfile_name: Dockerfile
+          docker_options: "--no-cache"
+          process_type: web
