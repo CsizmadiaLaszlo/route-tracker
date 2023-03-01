@@ -4,18 +4,18 @@
     "info": "A weboldal használatához be kell jelentkeznie.",
     "button": "bejelentkezés"
   },
-  "navigationMenu" : {
-    "homepage" : "Főoldal",
-    "statistics" : "Statisztikák",
-    "settings" : "Beállítások",
+  "navigationMenu": {
+    "homepage": "Főoldal",
+    "statistics": "Statisztikák",
+    "settings": "Beállítások",
     "logout": "Kijelentkezés"
   },
   "settings": {
     "hourlyRate": "Órabér",
     "overtimeRate": "Túlóra pótlék",
-    "nightShiftRate" : "Éjszakai pótlék",
-    "save" : "Mentés",
-    "title" : "Beállítások"
+    "nightShiftRate": "Éjszakai pótlék",
+    "save": "Mentés",
+    "title": "Beállítások"
   },
   "home": {
     "newRoute": "Új útvonal",
@@ -24,6 +24,9 @@
     "from": "Kezdés",
     "to": "Vég",
     "routeInputText": "Hozzon létre egy újat",
-    "routeSelectionText" : "Vagy válasszon az alábbi listából."
+    "routeSelectionText": "Vagy válasszon az alábbi listából.",
+    "waypoint": "Állomás",
+    "plate": "Rendszám",
+    "save": "Mentés"
   }
 }
