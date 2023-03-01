@@ -1,1 +1,0 @@
-export const mockRoutes = ["Wech", "111", "Gl", "Muhlheim", "Bischofshofen", "Wo", "Walsch", "Villach", "Griffen", "Glanegg", "Lienz", "VL", "KL", "St Veit", "Maria Saal"];
