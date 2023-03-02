@@ -4,8 +4,11 @@ import {Button, Divider} from "react-daisyui";
 import TimeSelector from "./TimeSelector.jsx";
 import NewRouteInput from "./NewRouteInput.jsx";
 import NewRouteSelection from "./NewRouteSelection.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
+import fetchWithToken from "../../../utils/fetchWithToken.js";
+import {useMsal} from "@azure/msal-react";
+import routeObjectBuilder from "../../../utils/routeObjectBuilder.js";
 
 const NewRoute = ({date}) => {
     const {t} = useTranslation();
@@ -15,10 +18,11 @@ const NewRoute = ({date}) => {
     const [toDate, setToDate] = useState(date);
     const [waypoints] = useState(null);
     const [plates] = useState(null);
+    const {instance} = useMsal();
 
     const handleSave = () => {
-        const data = {waypoints: {selectedWaypoints}, plates: {selectedPlates}, fromDate: fromDate, toDate: toDate}
-        console.log(data);
+        const route = routeObjectBuilder(selectedWaypoints, selectedPlates, fromDate, toDate);
+        fetchWithToken(instance, "POST", "route", route).then();
     }
 
     return (
