@@ -68,11 +68,18 @@ public class AccountService : IAccountService
         return route;
     }
 
-    public async Task<List<Waypoint>> GetWaypoints(string oid)
+    public async Task<List<Waypoint>> GetWaypoints()
     {
         var waypoints = await _context.Waypoints.ToListAsync();
         if (waypoints is null) throw new InvalidOperationException("Unable to get waypoints: waypoints not found.");
         return waypoints;
+    }
+
+    public async Task<List<Plate>> GetPlates()
+    {
+        var plates = await _context.Plates.ToListAsync();
+        if (plates is null) throw new InvalidOperationException("Unable to get plates: plates not found.");
+        return plates;
     }
 
     private async Task<Account> GetAccountByOid(string oid)
