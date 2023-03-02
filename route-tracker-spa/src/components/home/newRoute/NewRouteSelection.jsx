@@ -9,9 +9,9 @@ const NewRouteSelection = ({selection, addNewSelection}) => {
             {t('home.routeSelectionText')}
             <div className={"flex flex-wrap justify-center"}>
                 {selection.map((s) => (
-                    <Badge key={s}
+                    <Badge key={s.id}
                            className={"m-1 cursor-cell"}
-                           onClick={() => addNewSelection(s)}>{s}</Badge>
+                           onClick={() => addNewSelection(s.name)}>{s.name}</Badge>
                 ))}
             </div>
         </>
