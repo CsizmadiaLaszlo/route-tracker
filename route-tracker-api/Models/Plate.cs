@@ -12,4 +12,6 @@ public class Plate
 
     public string Name { get; init; } = null!;
     
+    [JsonIgnore]
+    public HashSet<Route> Routes { get; set; } = new();
 }
