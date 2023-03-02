@@ -11,4 +11,5 @@ public interface IAccountService
     Task<Route> AddRoute(string oid, Route route);
     Task<List<Waypoint>> GetWaypoints();
     Task<List<Plate>> GetPlates();
+    Task<HashSet<Route>> GetRoutesByDay(string oid, DateTime date);
 }

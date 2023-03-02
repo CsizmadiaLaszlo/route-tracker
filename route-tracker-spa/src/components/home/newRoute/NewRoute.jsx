@@ -106,7 +106,9 @@ const NewRoute = ({date, saveClicked, setSaveClicked}) => {
                     :
                     <></>
             }
-            <Button size={"sm"} onClick={handleSave}>{t('home.save')}</Button>
+            <div>
+                <Button size={"sm"} onClick={handleSave}>{t('home.save')}</Button>
+            </div>
         </MockupWindow>
     )
 }

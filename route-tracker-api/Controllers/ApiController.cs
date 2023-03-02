@@ -46,7 +46,7 @@ public class ApiController : ControllerBase
 
         return Ok();
     }
-    
+
     [HttpGet]
     [Route("setting")]
     public async Task<ActionResult> GetAccountSetting()
@@ -69,14 +69,14 @@ public class ApiController : ControllerBase
         try
         {
             var newSetting = await _accountService.UpdateAccountSetting(Oid, setting);
-            return CreatedAtAction("UpdateAccountSetting",newSetting);
+            return CreatedAtAction("UpdateAccountSetting", newSetting);
         }
         catch (InvalidOperationException exception)
         {
             return BadRequest(exception);
         }
     }
-    
+
     [HttpPost]
     [Route("route")]
     public async Task<ActionResult> AddNewRoute([FromBody] Route route)
@@ -84,14 +84,29 @@ public class ApiController : ControllerBase
         try
         {
             var newRoute = await _accountService.AddRoute(Oid, route);
-            return CreatedAtAction("AddNewRoute",newRoute);
+            return CreatedAtAction("AddNewRoute", newRoute);
         }
         catch (InvalidOperationException exception)
         {
             return BadRequest(exception);
         }
     }
-    
+
+    [HttpGet]
+    [Route("routes")]
+    public async Task<ActionResult> GetRoutesByDay([FromQuery(Name = "date")] DateTime date)
+    {
+        try
+        {
+            var routes = await _accountService.GetRoutesByDay(Oid, date);
+            return Ok(routes);
+        }
+        catch (InvalidOperationException exception)
+        {
+            return BadRequest(exception);
+        }
+    }
+
     [HttpGet]
     [Route("waypoint")]
     public async Task<ActionResult> GetWaypoints()
@@ -106,7 +121,7 @@ public class ApiController : ControllerBase
             return BadRequest(exception);
         }
     }
-    
+
     [HttpGet]
     [Route("plate")]
     public async Task<ActionResult> GetPlates()

@@ -25,7 +25,9 @@ public class AccountService : IAccountService
     /// <exception cref="InvalidOperationException">If an account with the OID already exists, an InvalidOperationException is thrown.</exception>
     public async Task AddAccount(string oid)
     {
-        var account = await GetAccountByOid(oid);
+        var account = await _context.Accounts
+            .AsNoTracking()
+            .FirstOrDefaultAsync(account => account.ObjectIdentifier == oid);
         if (account is not null)
         {
             throw new InvalidOperationException($"Unable to add account: account with oid: {oid}, already exist.");
@@ -37,7 +39,10 @@ public class AccountService : IAccountService
 
     public async Task<Setting> GetAccountSetting(string oid)
     {
-        var account = await GetAccountByOid(oid);
+        var account = await _context.Accounts
+            .Include(account => account.Setting)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(account => account.ObjectIdentifier == oid);
         if (account is null)
             throw new InvalidOperationException("Unable to retrieve account setting: account not found.");
         return account.Setting;
@@ -45,7 +50,9 @@ public class AccountService : IAccountService
 
     public async Task<Setting> UpdateAccountSetting(string oid, Setting newSetting)
     {
-        var account = await GetAccountByOid(oid);
+        var account = await _context.Accounts
+            .Include(account => account.Setting)
+            .FirstOrDefaultAsync(account => account.ObjectIdentifier == oid);
         if (account is null)
             throw new InvalidOperationException("Unable to update account setting: account not found.");
         account.Setting.UpdateSetting(newSetting);
@@ -55,7 +62,9 @@ public class AccountService : IAccountService
 
     public async Task<Route> AddRoute(string oid, Route route)
     {
-        var account = await GetAccountByOid(oid);
+        var account = await _context.Accounts
+            .Include(account => account.Routes)
+            .FirstOrDefaultAsync(account => account.ObjectIdentifier == oid);
         if (account is null) throw new InvalidOperationException("Unable to add route: account not found.");
         route.Waypoints = route.Waypoints
             .Select(waypoint => _context.Waypoints.FirstOrDefault(w => w.Name == waypoint.Name) ?? waypoint)
@@ -70,23 +79,31 @@ public class AccountService : IAccountService
 
     public async Task<List<Waypoint>> GetWaypoints()
     {
-        var waypoints = await _context.Waypoints.ToListAsync();
+        var waypoints = await _context.Waypoints.AsNoTracking().ToListAsync();
         if (waypoints is null) throw new InvalidOperationException("Unable to get waypoints: waypoints not found.");
         return waypoints;
     }
 
     public async Task<List<Plate>> GetPlates()
     {
-        var plates = await _context.Plates.ToListAsync();
+        var plates = await _context.Plates.AsNoTracking().ToListAsync();
         if (plates is null) throw new InvalidOperationException("Unable to get plates: plates not found.");
         return plates;
     }
 
-    private async Task<Account> GetAccountByOid(string oid)
+    public async Task<HashSet<Route>> GetRoutesByDay(string oid, DateTime date)
     {
-        return (await _context.Accounts
-            .Include(account => account.Setting)
+        var account = await _context.Accounts
             .Include(account => account.Routes)
-            .FirstOrDefaultAsync(account => account.ObjectIdentifier == oid))!;
+            .ThenInclude(route => route.Waypoints)
+            .AsSplitQuery()
+            .Include(account => account.Routes)
+            .ThenInclude(route => route.Plates)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(account => account.ObjectIdentifier == oid);
+        if (account is null)
+            throw new InvalidOperationException("Unable to get routes: account not found.");
+        return account.Routes.Where(route =>
+            route.StartDate.Year == date.Year && route.StartDate.DayOfYear == date.DayOfYear).ToHashSet();
     }
 }
