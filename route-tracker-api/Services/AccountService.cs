@@ -57,6 +57,9 @@ public class AccountService : IAccountService
     {
         var account = await GetAccountByOid(oid);
         if (account is null) throw new InvalidOperationException("Unable to add route: account not found.");
+        route.Waypoints = route.Waypoints
+            .Select(waypoint => _context.Waypoints.FirstOrDefault(w => w.Name == waypoint.Name) ?? waypoint)
+            .ToList();
         account.Routes.Add(route);
         await _context.SaveChangesAsync();
         return route;
