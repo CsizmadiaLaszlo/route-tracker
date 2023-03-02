@@ -20,6 +20,15 @@ const NewRoute = ({date}) => {
     const [plates] = useState(null);
     const {instance} = useMsal();
 
+    useEffect(() => {
+        setWaypointsLoading(true);
+        fetchWithToken(instance, "GET", "waypoint")
+            .then(r => {
+                setWaypoints(r);
+                setWaypointsLoading(false);
+            })
+    },[saveClicked])
+
     const handleSave = () => {
         const route = routeObjectBuilder(selectedWaypoints, selectedPlates, fromDate, toDate);
         fetchWithToken(instance, "POST", "route", route).then();
