@@ -17,6 +17,7 @@ public class Account
     /// </summary>
     public string ObjectIdentifier { get; init; } = null!;
 
-    [Required] 
-    public Setting Setting { get; set; } = null!;
+    public Setting Setting { get; set; } = new();
+
+    public HashSet<Route> Routes { get; set; } = new();
 }
