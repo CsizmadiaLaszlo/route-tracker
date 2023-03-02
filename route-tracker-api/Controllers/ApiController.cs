@@ -91,4 +91,19 @@ public class ApiController : ControllerBase
             return BadRequest(exception);
         }
     }
+    
+    [HttpGet]
+    [Route("waypoint")]
+    public async Task<ActionResult> GetWaypoints()
+    {
+        try
+        {
+            var waypoints = await _accountService.GetWaypoints(Oid);
+            return Ok(waypoints);
+        }
+        catch (InvalidOperationException exception)
+        {
+            return BadRequest(exception);
+        }
+    }
 }
