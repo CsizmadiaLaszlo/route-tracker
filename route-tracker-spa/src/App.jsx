@@ -18,6 +18,7 @@ const router = createBrowserRouter([
         ]
     },
 ]);
+document.querySelector("html").setAttribute('data-theme', localStorage.getItem("theme"));
 
 const App = ({instance}) => {
 
