@@ -5,6 +5,7 @@ import NewRoute from "../components/home/newRoute/NewRoute.jsx";
 
 export const Home = () => {
     const [date, setDate] = useState(new Date());
+    const [saveClicked, setSaveClicked] = useState(false);
 
     return (
         <div className={"flex flex-wrap"}>
@@ -13,7 +14,7 @@ export const Home = () => {
                 </MockupWindow>
             </div>
             <div className={"w-80 m-1 flex-auto text-center"}>
-                <NewRoute date={date}/>
+                <NewRoute date={date} saveClicked={saveClicked} setSaveClicked={setSaveClicked}/>
             </div>
         </div>
     );
