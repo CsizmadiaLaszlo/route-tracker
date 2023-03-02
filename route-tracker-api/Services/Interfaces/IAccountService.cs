@@ -9,5 +9,6 @@ public interface IAccountService
     Task<Setting> GetAccountSetting(string oid);
     Task<Setting> UpdateAccountSetting(string oid, Setting newSetting);
     Task<Route> AddRoute(string oid, Route route);
-    Task<List<Waypoint>> GetWaypoints(string oid);
+    Task<List<Waypoint>> GetWaypoints();
+    Task<List<Plate>> GetPlates();
 }

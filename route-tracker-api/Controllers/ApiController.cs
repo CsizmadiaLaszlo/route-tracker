@@ -98,8 +98,23 @@ public class ApiController : ControllerBase
     {
         try
         {
-            var waypoints = await _accountService.GetWaypoints(Oid);
+            var waypoints = await _accountService.GetWaypoints();
             return Ok(waypoints);
+        }
+        catch (InvalidOperationException exception)
+        {
+            return BadRequest(exception);
+        }
+    }
+    
+    [HttpGet]
+    [Route("plate")]
+    public async Task<ActionResult> GetPlates()
+    {
+        try
+        {
+            var plates = await _accountService.GetPlates();
+            return Ok(plates);
         }
         catch (InvalidOperationException exception)
         {
