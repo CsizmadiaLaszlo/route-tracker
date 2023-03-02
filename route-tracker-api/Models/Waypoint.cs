@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 // ReSharper disable CollectionNeverUpdated.Global
 
@@ -11,4 +12,6 @@ public class Waypoint
 
     public string Name { get; init; } = null!;
 
+    [JsonIgnore] 
+    public HashSet<Route> Routes { get; set; } = new();
 }
