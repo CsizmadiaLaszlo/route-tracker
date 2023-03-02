@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react";
 import {BsMoon, BsSun} from "react-icons/bs";
-import {themeChange} from "theme-change";
 import {Button} from "react-daisyui";
 
 const ThemeSwitch = () => {
@@ -9,21 +8,26 @@ const ThemeSwitch = () => {
     const light = "corporate";
 
     useEffect(() => {
-        setTheme(localStorage.getItem("theme"))
-    })
+        if (localStorage.getItem("theme"))
+        setTheme(localStorage.getItem("theme"));
+    },[])
 
     useEffect(() => {
-        themeChange(false)
-        // 👆 false parameter is required for react project
-    }, [])
+        localStorage.setItem("theme", theme);
+    },[theme])
+    const handleClick = (theme) => {
+        const doc = document.querySelector("html");
+        doc.setAttribute('data-theme', theme);
+        setTheme(theme);
+    }
 
     return (
         theme === "corporate" ?
-            <Button data-set-theme={dark} onClick={() => setTheme(dark)} color="ghost" shape="circle">
+            <Button data-set-theme={dark} onClick={() => handleClick(dark)} color="ghost" shape="circle">
                 <BsSun/>
             </Button>
             :
-            <Button data-set-theme={light} onClick={() => setTheme(light)} color="ghost" shape="circle">
+            <Button data-set-theme={light} onClick={() => handleClick(light)} color="ghost" shape="circle">
                 <BsMoon/>
             </Button>
     )
