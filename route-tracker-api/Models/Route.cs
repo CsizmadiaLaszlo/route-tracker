@@ -8,4 +8,6 @@ public class Route
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; init; }
+
+    public List<Waypoint> Waypoints { get; set; } = new();
 }
