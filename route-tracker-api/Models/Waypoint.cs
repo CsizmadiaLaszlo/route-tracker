@@ -8,4 +8,7 @@ public class Waypoint
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; init; }
+
+    public string Name { get; init; } = null!;
+
 }
