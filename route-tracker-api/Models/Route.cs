@@ -10,4 +10,5 @@ public class Route
     public int Id { get; init; }
 
     public List<Waypoint> Waypoints { get; set; } = new();
+    public HashSet<Plate> Plates { get; set; } = new();
 }
