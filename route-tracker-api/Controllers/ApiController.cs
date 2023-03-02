@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using route_tracker_api.Models;
 using route_tracker_api.Services.Interfaces;
+using Route = route_tracker_api.Models.Route;
 
 namespace route_tracker_api.Controllers;
 
@@ -38,9 +39,9 @@ public class ApiController : ControllerBase
         {
             await _accountService.AddAccount(Oid);
         }
-        catch (InvalidOperationException e)
+        catch (InvalidOperationException exception)
         {
-            return Conflict($"Unable to add account: account with oid: {Oid}, already exist.");
+            return Conflict(exception);
         }
 
         return Ok();
@@ -55,9 +56,9 @@ public class ApiController : ControllerBase
             var setting = await _accountService.GetAccountSetting(Oid);
             return Ok(setting);
         }
-        catch (InvalidOperationException e)
+        catch (InvalidOperationException exception)
         {
-            return BadRequest("Unable to retrieve account setting: account not found.");
+            return BadRequest(exception);
         }
     }
 
@@ -70,9 +71,24 @@ public class ApiController : ControllerBase
             var newSetting = await _accountService.UpdateAccountSetting(Oid, setting);
             return CreatedAtAction("UpdateAccountSetting",newSetting);
         }
-        catch (InvalidOperationException e)
+        catch (InvalidOperationException exception)
         {
-            return BadRequest("Unable to update account setting: account not found.");
+            return BadRequest(exception);
+        }
+    }
+    
+    [HttpPost]
+    [Route("route")]
+    public async Task<ActionResult> AddNewRoute([FromBody] Route route)
+    {
+        try
+        {
+            var newRoute = await _accountService.AddRoute(Oid, route);
+            return CreatedAtAction("AddNewRoute",newRoute);
+        }
+        catch (InvalidOperationException exception)
+        {
+            return BadRequest(exception);
         }
     }
 }
