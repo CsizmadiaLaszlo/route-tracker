@@ -1,6 +1,6 @@
 import MockupWindow from "../../shared/MockupWindow.jsx";
 import ShowSelection from "./ShowSelection.jsx";
-import {Button, Divider} from "react-daisyui";
+import {Button, Divider, Progress} from "react-daisyui";
 import TimeSelector from "./TimeSelector.jsx";
 import NewRouteInput from "./NewRouteInput.jsx";
 import NewRouteSelection from "./NewRouteSelection.jsx";
@@ -10,14 +10,15 @@ import fetchWithToken from "../../../utils/fetchWithToken.js";
 import {useMsal} from "@azure/msal-react";
 import routeObjectBuilder from "../../../utils/routeObjectBuilder.js";
 
-const NewRoute = ({date}) => {
+const NewRoute = ({date, saveClicked, setSaveClicked}) => {
     const {t} = useTranslation();
     const [selectedWaypoints, setSelectedWaypoints] = useState([]);
     const [selectedPlates, setSelectedPlates] = useState([]);
     const [fromDate, setFromDate] = useState(date);
     const [toDate, setToDate] = useState(date);
-    const [waypoints] = useState(null);
-    const [plates] = useState(null);
+    const [waypoints, setWaypoints] = useState(null);
+    const [waypointsLoading, setWaypointsLoading] = useState(true);
+    const [plates, setPlates] = useState(null);
     const {instance} = useMsal();
 
     useEffect(() => {
@@ -31,7 +32,13 @@ const NewRoute = ({date}) => {
 
     const handleSave = () => {
         const route = routeObjectBuilder(selectedWaypoints, selectedPlates, fromDate, toDate);
-        fetchWithToken(instance, "POST", "route", route).then();
+        fetchWithToken(instance, "POST", "route", route).then(() => {
+            setSaveClicked(!saveClicked);
+            setSelectedWaypoints([]);
+            setSelectedPlates([]);
+            setFromDate(date);
+            setToDate(date);
+        });
     }
 
     return (
@@ -50,15 +57,15 @@ const NewRoute = ({date}) => {
                     setSelectedWaypoints([...selectedWaypoints, newRoute])
                 }}/>
             </div>
-            {waypoints
+            {waypointsLoading
                 ?
+                <Progress className="w-56"/>
+                :
                 <div className={"m-5 min-h-8"}>
                     <NewRouteSelection selection={waypoints} addNewSelection={(newRoute) => {
                         setSelectedWaypoints([...selectedWaypoints, newRoute])
                     }}/>
                 </div>
-                :
-                <></>
             }
 
             <Divider>{t('home.plate')}</Divider>
