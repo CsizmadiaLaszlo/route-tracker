@@ -17,18 +17,29 @@ const NewRoute = ({date, saveClicked, setSaveClicked}) => {
     const [fromDate, setFromDate] = useState(date);
     const [toDate, setToDate] = useState(date);
     const [waypoints, setWaypoints] = useState(null);
-    const [waypointsLoading, setWaypointsLoading] = useState(true);
+    const [waypointsLoading, setWaypointsLoading] = useState(false);
     const [plates, setPlates] = useState(null);
+    const [platesLoading, setPlatesLoading] = useState(false)
     const {instance} = useMsal();
 
     useEffect(() => {
         setWaypointsLoading(true);
+        setPlatesLoading(true);
         fetchWithToken(instance, "GET", "waypoint")
             .then(r => {
-                setWaypoints(r);
+                setWaypoints(r.length === 0 ? null : r);
                 setWaypointsLoading(false);
             })
-    },[saveClicked])
+    }, [saveClicked])
+
+    useEffect(() => {
+        setPlatesLoading(true);
+        fetchWithToken(instance, "GET", "plate")
+            .then(r => {
+                setPlates(r.length === 0 ? null : r);
+                setPlatesLoading(false);
+            })
+    }, [saveClicked])
 
     const handleSave = () => {
         const route = routeObjectBuilder(selectedWaypoints, selectedPlates, fromDate, toDate);
@@ -61,11 +72,15 @@ const NewRoute = ({date, saveClicked, setSaveClicked}) => {
                 ?
                 <Progress className="w-56"/>
                 :
-                <div className={"m-5 min-h-8"}>
-                    <NewRouteSelection selection={waypoints} addNewSelection={(newRoute) => {
-                        setSelectedWaypoints([...selectedWaypoints, newRoute])
-                    }}/>
-                </div>
+                waypoints
+                    ?
+                    <div className={"m-5 min-h-8"}>
+                        <NewRouteSelection selection={waypoints} addNewSelection={(newRoute) => {
+                            setSelectedWaypoints([...selectedWaypoints, newRoute])
+                        }}/>
+                    </div>
+                    :
+                    <></>
             }
 
             <Divider>{t('home.plate')}</Divider>
@@ -77,15 +92,19 @@ const NewRoute = ({date, saveClicked, setSaveClicked}) => {
                     setSelectedPlates([...selectedPlates, newPlate])
                 }}/>
             </div>
-            {plates
+            {platesLoading
                 ?
-                <div className={"m-5 min-h-8"}>
-                    <NewRouteSelection selection={plates} addNewSelection={(newPlate) => {
-                        setSelectedPlates([...selectedPlates, newPlate])
-                    }}/>
-                </div>
+                <Progress className="w-56"/>
                 :
-                <></>
+                plates
+                    ?
+                    <div className={"m-5 min-h-8"}>
+                        <NewRouteSelection selection={plates} addNewSelection={(newPlate) => {
+                            setSelectedPlates([...selectedPlates, newPlate])
+                        }}/>
+                    </div>
+                    :
+                    <></>
             }
             <Button size={"sm"} onClick={handleSave}>{t('home.save')}</Button>
         </MockupWindow>
