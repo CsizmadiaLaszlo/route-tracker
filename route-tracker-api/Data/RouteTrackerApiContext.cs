@@ -9,6 +9,7 @@ public class RouteTrackerApiContext : DbContext
     public DbSet<Account> Accounts { get; init; } = null!;
     public DbSet<Setting> Settings { get; init; } = null!;
     public DbSet<Route> Routes { get; init; } = null!;
+    public DbSet<Waypoint> Waypoints { get; init; } = null!;
 
     public RouteTrackerApiContext(DbContextOptions<RouteTrackerApiContext> options) : base(options)
     {
