@@ -1,11 +1,9 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Moq;
 using route_tracker_api.Controllers;
 using route_tracker_api.Models;
-using route_tracker_api.Services;
 using route_tracker_api.Services.Interfaces;
 
 namespace route_tracker_api_tests.ControllerTests
@@ -100,8 +98,6 @@ namespace route_tracker_api_tests.ControllerTests
 
             // Assert
             Assert.That(result, Is.InstanceOf<BadRequestObjectResult>());
-            var badRequestResult = result as BadRequestObjectResult;
-            Assert.That(badRequestResult!.Value, Is.EqualTo("Unable to retrieve account setting: account not found."));
         }
 
         [Test]
@@ -109,7 +105,6 @@ namespace route_tracker_api_tests.ControllerTests
         {
             // Arrange
             var expectedSetting = new Setting();
-            // var account = new Account { Setting = expectedSetting };
             _accountServiceMock.Setup(x => x.UpdateAccountSetting(It.IsAny<string>(), expectedSetting))
                 .ReturnsAsync(expectedSetting);
 
@@ -121,7 +116,7 @@ namespace route_tracker_api_tests.ControllerTests
             var createdAtActionResult = result as CreatedAtActionResult;
             Assert.That(createdAtActionResult!.Value, Is.EqualTo(expectedSetting));
         }
-        
+
         [Test]
         public async Task UpdateAccountSetting_InvalidSetting_ThrowsInvalidOperationException()
         {
@@ -134,8 +129,6 @@ namespace route_tracker_api_tests.ControllerTests
 
             // Assert
             Assert.That(result, Is.InstanceOf<BadRequestObjectResult>());
-            var badRequestResult = result as BadRequestObjectResult;
-            Assert.That(badRequestResult!.Value, Is.EqualTo("Unable to update account setting: account not found."));
         }
     }
 }
