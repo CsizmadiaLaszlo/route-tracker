@@ -12,4 +12,5 @@ public class Route
     public List<Waypoint> Waypoints { get; set; } = new();
     public HashSet<Plate> Plates { get; set; } = new();
     public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
 }
