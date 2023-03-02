@@ -5,7 +5,7 @@ namespace route_tracker_api.Models;
 public class Setting
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    public int Id { get; init; }
 
     public double HourlyRate { get; set; }
 
