@@ -60,6 +60,9 @@ public class AccountService : IAccountService
         route.Waypoints = route.Waypoints
             .Select(waypoint => _context.Waypoints.FirstOrDefault(w => w.Name == waypoint.Name) ?? waypoint)
             .ToList();
+        route.Plates = route.Plates
+            .Select(plate => _context.Plates.FirstOrDefault(p => p.Name == plate.Name) ?? plate)
+            .ToHashSet();
         account.Routes.Add(route);
         await _context.SaveChangesAsync();
         return route;
