@@ -6,7 +6,7 @@ I began this project with the goal of solving a real-world issue. Specifically, 
 <!-- Hosting -->
 ## Hosting
 
-It relies heavily on Azure AD for authentication and authorization, which means that it cannot be run by others without access to the necessary credentials. The project will be hosted soon and accessible to the public. Stay tuned for updates on how to access it.
+Great news! The project is already hosted on Heroku and can be accessed at https://routetracker.herokuapp.com/. However, it's worth noting that both the backend and frontend are currently hosted on Heroku Eco, which means that if the website is not always active, it may be in a sleeping stage. Please be patient as the system may need some time to wake up. Thank you for your interest, and happy exploring!
 
 ### Built With
 
