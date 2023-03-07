@@ -19,10 +19,13 @@ public class AccountService : IAccountService
     }
 
     /// <summary>
-    /// Creates an account for the current user. Sets the account ObjectIdentifier and adds it to the database.
+    /// Adds a new account with the specified object identifier (OID) to the database.
     /// </summary>
-    /// <param name="oid">Object identifier (ID) of the user object in Azure AD</param>
-    /// <exception cref="InvalidOperationException">If an account with the OID already exists, an InvalidOperationException is thrown.</exception>
+    /// <param name="oid">The OID of the account to add.</param>
+    /// <remarks>
+    /// This method adds a new account with the specified OID to the database. If an account with the same OID already exists, an InvalidOperationException will be thrown.
+    /// </remarks>
+    /// <exception cref="InvalidOperationException">Thrown when an account with the specified OID already exists in the database.</exception>
     public async Task AddAccount(string oid)
     {
         var account = await _context.Accounts
@@ -37,6 +40,12 @@ public class AccountService : IAccountService
         await _context.SaveChangesAsync();
     }
 
+    /// <summary>
+    /// Retrieves the account setting for the specified account.
+    /// </summary>
+    /// <param name="oid">The object identifier of the account to retrieve the setting for.</param>
+    /// <returns>A Setting object representing the account setting.</returns>
+    /// <exception cref="InvalidOperationException">Thrown when the account cannot be found.</exception>
     public async Task<Setting> GetAccountSetting(string oid)
     {
         var account = await _context.Accounts
@@ -48,6 +57,13 @@ public class AccountService : IAccountService
         return account.Setting;
     }
 
+    /// <summary>
+    /// Updates the setting for the account identified by the specified Object Identifier (OID).
+    /// </summary>
+    /// <param name="oid">The OID of the account to update.</param>
+    /// <param name="newSetting">The new setting to apply to the account.</param>
+    /// <returns>The updated setting for the account.</returns>
+    /// <exception cref="InvalidOperationException">Thrown when an account with the specified OID is not found.</exception>
     public async Task<Setting> UpdateAccountSetting(string oid, Setting newSetting)
     {
         var account = await _context.Accounts
@@ -60,6 +76,13 @@ public class AccountService : IAccountService
         return account.Setting;
     }
 
+    /// <summary>
+    /// Adds a new route to the account with the specified object identifier.
+    /// </summary>
+    /// <param name="oid">The object identifier of the account.</param>
+    /// <param name="route">The route to add to the account.</param>
+    /// <returns>The added route.</returns>
+    /// <exception cref="InvalidOperationException">Thrown when the account with the specified object identifier cannot be found.</exception>
     public async Task<Route> AddRoute(string oid, Route route)
     {
         var account = await _context.Accounts
@@ -77,6 +100,11 @@ public class AccountService : IAccountService
         return route;
     }
 
+    /// <summary>
+    /// Gets a list of all waypoints.
+    /// </summary>
+    /// <returns>A list of waypoints.</returns>
+    /// <exception cref="InvalidOperationException">Thrown when waypoints are not found in the database.</exception>
     public async Task<List<Waypoint>> GetWaypoints()
     {
         var waypoints = await _context.Waypoints.AsNoTracking().ToListAsync();
@@ -84,6 +112,11 @@ public class AccountService : IAccountService
         return waypoints;
     }
 
+    /// <summary>
+    /// Retrieves a list of all the available plates from the database.
+    /// </summary>
+    /// <returns>A list of plates.</returns>
+    /// <exception cref="InvalidOperationException">Thrown when plates are not found in the database.</exception>
     public async Task<List<Plate>> GetPlates()
     {
         var plates = await _context.Plates.AsNoTracking().ToListAsync();
@@ -91,6 +124,13 @@ public class AccountService : IAccountService
         return plates;
     }
 
+    /// <summary>
+    /// Gets the routes associated with a specific account and date.
+    /// </summary>
+    /// <param name="oid">The unique identifier of the account.</param>
+    /// <param name="date">The date of the routes to retrieve.</param>
+    /// <returns>A HashSet of Routes that have a start date matching the given date.</returns>
+    /// <exception cref="InvalidOperationException">Thrown when the specified account cannot be found.</exception>
     public async Task<HashSet<Route>> GetRoutesByDay(string oid, DateTime date)
     {
         var account = await _context.Accounts
