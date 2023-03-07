@@ -76,6 +76,13 @@ public class AccountService : IAccountService
         return account.Setting;
     }
 
+    /// <summary>
+    /// Adds a new route to the account with the specified object identifier.
+    /// </summary>
+    /// <param name="oid">The object identifier of the account.</param>
+    /// <param name="route">The route to add to the account.</param>
+    /// <returns>The added route.</returns>
+    /// <exception cref="InvalidOperationException">Thrown when the account with the specified object identifier cannot be found.</exception>
     public async Task<Route> AddRoute(string oid, Route route)
     {
         var account = await _context.Accounts
