@@ -197,6 +197,18 @@ public class ApiController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Retrieves all license plates.
+    /// </summary>
+    /// <remarks>
+    /// This endpoint retrieves all license plates. If an error occurs while retrieving the plates,
+    /// a 400 Bad Request response will be returned.
+    /// </remarks>
+    /// <returns>
+    /// Returns an ActionResult with a status code of 200 OK and the list of license plates in the response body if
+    /// successful, or a status code of 400 Bad Request if an error occurs while retrieving the plates.
+    /// </returns>
+    /// <exception cref="InvalidOperationException">Thrown when an error occurs while retrieving the plates.</exception>
     [HttpGet]
     [Route("plate")]
     public async Task<ActionResult> GetPlates()
