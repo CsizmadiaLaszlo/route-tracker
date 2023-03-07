@@ -28,9 +28,17 @@ public class ApiController : ControllerBase
     }
 
     /// <summary>
-    /// Add new user to the database.
-    /// The primary key is the Object identifier (ID) of the user object in Azure AD.
+    /// Adds a new user account to the database.
     /// </summary>
+    /// <remarks>
+    /// This endpoint creates a new user account using the authenticated user's object identifier (Oid).
+    /// If the Oid is already associated with an existing account, a 409 Conflict response will be returned.
+    /// </remarks>
+    /// <returns>
+    /// Returns an ActionResult with a status code of 200 OK if the user account was successfully created, or a status
+    /// code of 409 Conflict if the Oid is already associated with an existing account.
+    /// </returns>
+    /// <exception cref="InvalidOperationException">Thrown when an error occurs while adding the new account.</exception>
     [HttpPost]
     [Route("new-user")]
     public async Task<ActionResult> AddNewUser()
