@@ -40,6 +40,12 @@ public class AccountService : IAccountService
         await _context.SaveChangesAsync();
     }
 
+    /// <summary>
+    /// Retrieves the account setting for the specified account.
+    /// </summary>
+    /// <param name="oid">The object identifier of the account to retrieve the setting for.</param>
+    /// <returns>A Setting object representing the account setting.</returns>
+    /// <exception cref="InvalidOperationException">Thrown when the account cannot be found.</exception>
     public async Task<Setting> GetAccountSetting(string oid)
     {
         var account = await _context.Accounts
