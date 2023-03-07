@@ -124,6 +124,13 @@ public class AccountService : IAccountService
         return plates;
     }
 
+    /// <summary>
+    /// Gets the routes associated with a specific account and date.
+    /// </summary>
+    /// <param name="oid">The unique identifier of the account.</param>
+    /// <param name="date">The date of the routes to retrieve.</param>
+    /// <returns>A HashSet of Routes that have a start date matching the given date.</returns>
+    /// <exception cref="InvalidOperationException">Thrown when the specified account cannot be found.</exception>
     public async Task<HashSet<Route>> GetRoutesByDay(string oid, DateTime date)
     {
         var account = await _context.Accounts
