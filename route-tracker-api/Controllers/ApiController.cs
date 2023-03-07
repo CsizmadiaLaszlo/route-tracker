@@ -112,6 +112,20 @@ public class ApiController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Adds a new route for the authenticated user.
+    /// </summary>
+    /// <remarks>
+    /// This endpoint adds a new route for the authenticated user using the object identifier (Oid) associated with the
+    /// user and the new route provided in the request body. If the Oid is not associated with an existing account,
+    /// a 400 Bad Request response will be returned.
+    /// </remarks>
+    /// <param name="route">The new route to be added.</param>
+    /// <returns>
+    /// Returns an ActionResult with a status code of 201 Created and the newly created route in the response body
+    /// if successful, or a status code of 400 Bad Request if the Oid is not associated with an existing account.
+    /// </returns>
+    /// <exception cref="InvalidOperationException">Thrown when an error occurs while adding the new route.</exception>
     [HttpPost]
     [Route("route")]
     public async Task<ActionResult> AddNewRoute([FromBody] Route route)
