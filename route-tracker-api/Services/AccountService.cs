@@ -19,10 +19,13 @@ public class AccountService : IAccountService
     }
 
     /// <summary>
-    /// Creates an account for the current user. Sets the account ObjectIdentifier and adds it to the database.
+    /// Adds a new account with the specified object identifier (OID) to the database.
     /// </summary>
-    /// <param name="oid">Object identifier (ID) of the user object in Azure AD</param>
-    /// <exception cref="InvalidOperationException">If an account with the OID already exists, an InvalidOperationException is thrown.</exception>
+    /// <param name="oid">The OID of the account to add.</param>
+    /// <remarks>
+    /// This method adds a new account with the specified OID to the database. If an account with the same OID already exists, an InvalidOperationException will be thrown.
+    /// </remarks>
+    /// <exception cref="InvalidOperationException">Thrown when an account with the specified OID already exists in the database.</exception>
     public async Task AddAccount(string oid)
     {
         var account = await _context.Accounts
