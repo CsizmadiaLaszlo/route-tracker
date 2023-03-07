@@ -100,6 +100,11 @@ public class AccountService : IAccountService
         return route;
     }
 
+    /// <summary>
+    /// Gets a list of all waypoints.
+    /// </summary>
+    /// <returns>A list of waypoints.</returns>
+    /// <exception cref="InvalidOperationException">Thrown when waypoints are not found in the database.</exception>
     public async Task<List<Waypoint>> GetWaypoints()
     {
         var waypoints = await _context.Waypoints.AsNoTracking().ToListAsync();
