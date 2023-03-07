@@ -141,6 +141,20 @@ public class ApiController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Retrieves all routes for the authenticated user on a specified day.
+    /// </summary>
+    /// <remarks>
+    /// This endpoint retrieves all routes for the authenticated user on a specified day using the object
+    /// identifier (Oid) associated with the user and the date provided as a query parameter. If the Oid is not
+    /// associated with an existing account, a 400 Bad Request response will be returned.
+    /// </remarks>
+    /// <param name="date">The date on which to retrieve all routes for the authenticated user.</param>
+    /// <returns>
+    /// Returns an ActionResult with a status code of 200 OK and the list of routes in the response body if successful,
+    /// or a status code of 400 Bad Request if the Oid is not associated with an existing account.
+    /// </returns>
+    /// <exception cref="InvalidOperationException">Thrown when an error occurs while retrieving the routes.</exception>
     [HttpGet]
     [Route("routes")]
     public async Task<ActionResult> GetRoutesByDay([FromQuery(Name = "date")] DateTime date)
