@@ -57,6 +57,13 @@ public class AccountService : IAccountService
         return account.Setting;
     }
 
+    /// <summary>
+    /// Updates the setting for the account identified by the specified Object Identifier (OID).
+    /// </summary>
+    /// <param name="oid">The OID of the account to update.</param>
+    /// <param name="newSetting">The new setting to apply to the account.</param>
+    /// <returns>The updated setting for the account.</returns>
+    /// <exception cref="InvalidOperationException">Thrown when an account with the specified OID is not found.</exception>
     public async Task<Setting> UpdateAccountSetting(string oid, Setting newSetting)
     {
         var account = await _context.Accounts
