@@ -55,6 +55,19 @@ public class ApiController : ControllerBase
         return Ok();
     }
 
+    /// <summary>
+    /// Retrieves the account setting for the authenticated user.
+    /// </summary>
+    /// <remarks>
+    /// This endpoint retrieves the account settings for the authenticated user using the object identifier (Oid)
+    /// associated with the user. If the Oid is not associated with an existing account, a 400 Bad Request response
+    /// will be returned.
+    /// </remarks>
+    /// <returns>
+    /// Returns an ActionResult with a status code of 200 OK and the account setting in the response body if successful,
+    /// or a status code of 400 Bad Request if the Oid is not associated with an existing account.
+    /// </returns>
+    /// <exception cref="InvalidOperationException">Thrown when an error occurs while retrieving the account setting.</exception>
     [HttpGet]
     [Route("setting")]
     public async Task<ActionResult> GetAccountSetting()
