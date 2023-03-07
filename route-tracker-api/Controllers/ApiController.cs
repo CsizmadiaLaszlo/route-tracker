@@ -83,6 +83,20 @@ public class ApiController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Updates the account setting for the authenticated user.
+    /// </summary>
+    /// <remarks>
+    /// This endpoint updates the account setting for the authenticated user using the object identifier (Oid)
+    /// associated with the user and the new setting provided in the request body. If the Oid is not associated with an
+    /// existing account, a 400 Bad Request response will be returned.
+    /// </remarks>
+    /// <param name="setting">The new account setting.</param>
+    /// <returns>
+    /// Returns an ActionResult with a status code of 201 Created and the updated account setting in the response body
+    /// if successful, or a status code of 400 Bad Request if the Oid is not associated with an existing account.
+    /// </returns>
+    /// <exception cref="InvalidOperationException">Thrown when an error occurs while updating the account setting.</exception>
     [HttpPut]
     [Route("setting")]
     public async Task<ActionResult> UpdateAccountSetting([FromBody] Setting setting)
