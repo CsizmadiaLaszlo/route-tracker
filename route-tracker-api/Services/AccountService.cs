@@ -112,6 +112,11 @@ public class AccountService : IAccountService
         return waypoints;
     }
 
+    /// <summary>
+    /// Retrieves a list of all the available plates from the database.
+    /// </summary>
+    /// <returns>A list of plates.</returns>
+    /// <exception cref="InvalidOperationException">Thrown when plates are not found in the database.</exception>
     public async Task<List<Plate>> GetPlates()
     {
         var plates = await _context.Plates.AsNoTracking().ToListAsync();
