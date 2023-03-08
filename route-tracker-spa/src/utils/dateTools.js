@@ -19,3 +19,21 @@ export const modfiyeDateDay = (date, days) => {
 }
 
 export const getDaysOfWeek = (date) => {
+    let week= [];
+    let current = new Date(date);
+
+    // If current day is Sunday, adjust start of week accordingly
+    if (current.getDay() === 0) {
+        current.setDate(current.getDate() - 6);
+    } else {
+        current.setDate((current.getDate() - current.getDay() +1));
+    }
+
+    for (let i = 0; i < 7; i++) {
+        week.push(
+            new Date(current)
+        );
+        current.setDate(current.getDate() +1);
+    }
+    return week;
+};
