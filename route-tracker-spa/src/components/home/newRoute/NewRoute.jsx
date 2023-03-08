@@ -4,14 +4,16 @@ import {Button, Divider, Progress} from "react-daisyui";
 import TimeSelector from "./TimeSelector.jsx";
 import NewRouteInput from "./NewRouteInput.jsx";
 import NewRouteSelection from "./NewRouteSelection.jsx";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import fetchWithToken from "../../../utils/fetchWithToken.js";
 import {useMsal} from "@azure/msal-react";
 import routeObjectBuilder from "../../../utils/routeObjectBuilder.js";
+import DateContext from "../../../context/DateContext.jsx";
 
-const NewRoute = ({date, saveClicked, setSaveClicked}) => {
+const NewRoute = ({saveClicked, setSaveClicked}) => {
     const {t} = useTranslation();
+    const {date} = useContext(DateContext)
     const [selectedWaypoints, setSelectedWaypoints] = useState([]);
     const [selectedPlates, setSelectedPlates] = useState([]);
     const [fromDate, setFromDate] = useState(date);
