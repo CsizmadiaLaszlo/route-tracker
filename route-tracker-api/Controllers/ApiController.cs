@@ -156,12 +156,44 @@ public class ApiController : ControllerBase
     /// </returns>
     /// <exception cref="InvalidOperationException">Thrown when an error occurs while retrieving the routes.</exception>
     [HttpGet]
-    [Route("routes")]
+    [Route("routes/day")]
     public async Task<ActionResult> GetRoutesByDay([FromQuery(Name = "date")] DateTime date)
     {
         try
         {
             var routes = await _accountService.GetRoutesByDay(Oid, date);
+            return Ok(routes);
+        }
+        catch (InvalidOperationException exception)
+        {
+            return BadRequest(exception);
+        }
+    }
+
+    /// <summary>
+    /// Retrieves all routes for the authenticated user in a specified range.
+    /// </summary>
+    /// <remarks>
+    /// This endpoint retrieves all routes for the authenticated user in a specified range using the object
+    /// identifier (Oid) associated with the user, start date and the end date provided as a query parameter.
+    /// If the Oid is not associated with an existing account, a 400 Bad Request response will be returned.
+    /// </remarks>
+    /// <param name="startDate">The start date from which to retrieve routes for the authenticated user.</param>
+    /// <param name="endDate">The end date from which to retrieve all routes for the authenticated user.</param>
+    /// <returns>
+    /// Returns an ActionResult with a status code of 200 OK and the list of routes in the response body if successful,
+    /// or a status code of 400 Bad Request if the Oid is not associated with an existing account.
+    /// </returns>
+    /// <exception cref="InvalidOperationException">Thrown when an error occurs while retrieving the routes.</exception>
+    [HttpGet]
+    [Route("routes/range")]
+    public async Task<ActionResult> GetRoutesByRange(
+        [FromQuery(Name = "start-date")] DateTime startDate,
+        [FromQuery(Name = "end-date")] DateTime endDate)
+    {
+        try
+        {
+            var routes = await _accountService.GetRoutesByRange(Oid, startDate, endDate);
             return Ok(routes);
         }
         catch (InvalidOperationException exception)

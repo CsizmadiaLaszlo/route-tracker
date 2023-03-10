@@ -28,5 +28,6 @@
     "waypoint": "Wegpunkt",
     "plate": "Kennzeichen",
     "save": "Speichern"
-  }
+  },
+  "time": "{{time, TIME}}"
 }
