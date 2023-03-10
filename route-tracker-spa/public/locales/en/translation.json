@@ -28,5 +28,6 @@
     "waypoint": "Waypoint",
     "plate": "Plate",
     "save": "Save"
-  }
+  },
+  "time": "{{time, TIME}}"
 }

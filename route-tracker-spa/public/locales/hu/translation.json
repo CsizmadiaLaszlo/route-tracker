@@ -28,5 +28,6 @@
     "waypoint": "Állomás",
     "plate": "Rendszám",
     "save": "Mentés"
-  }
+  },
+  "time": "{{time, TIME}}"
 }

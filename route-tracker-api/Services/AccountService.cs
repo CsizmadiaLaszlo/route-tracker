@@ -146,4 +146,27 @@ public class AccountService : IAccountService
         return account.Routes.Where(route =>
             route.StartDate.Year == date.Year && route.StartDate.DayOfYear == date.DayOfYear).ToHashSet();
     }
+    
+    /// <summary>
+    /// Gets the routes associated with a specific account and range.
+    /// </summary>
+    /// <param name="oid">The unique identifier of the account.</param>
+    /// <param name="startDate">The start date of the routes to retrieve.</param>
+    /// <param name="endDate">The end date of the routes to retrieve.</param>
+    /// <returns>A HashSet of Routes that have a start date matching the given range.</returns>
+    /// <exception cref="InvalidOperationException">Thrown when the specified account cannot be found.</exception>
+    public async Task<HashSet<Route>> GetRoutesByRange(string oid, DateTime startDate, DateTime endDate)
+    {
+        var account = await _context.Accounts
+            .Include(account => account.Routes)
+            .ThenInclude(route => route.Waypoints)
+            .AsSplitQuery()
+            .Include(account => account.Routes)
+            .ThenInclude(route => route.Plates)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(account => account.ObjectIdentifier == oid);
+        if (account is null)
+            throw new InvalidOperationException("Unable to get routes: account not found.");
+        return account.Routes.Where(route =>  route.StartDate >= startDate && route.EndDate <= endDate).ToHashSet();
+    }
 }

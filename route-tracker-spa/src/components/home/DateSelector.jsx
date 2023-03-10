@@ -6,11 +6,9 @@ import {modfiyeDateDay} from "../../utils/dateTools.js";
 import "react-datepicker/dist/react-datepicker.css";
 import setLocale from "../../utils/setLocale.js";
 import DateContext from "../../context/DateContext.jsx";
-import WeekContext from "../../context/WeekContext.jsx";
 
 const DateSelector = () => {
     const {date, setDate} = useContext(DateContext)
-    const {daysOfWeek} = useContext(WeekContext)
     const {i18n, t} = useTranslation();
 
     const CustomInput = forwardRef(({value, onClick}, ref) => (
@@ -36,7 +34,6 @@ const DateSelector = () => {
                 setDate(date);
             }}
             locale={i18n.language}
-            highlightDates={daysOfWeek}
             customInput={<CustomInput/>}
         />
     );

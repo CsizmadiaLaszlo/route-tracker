@@ -3,6 +3,7 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import Backend from 'i18next-http-backend';
 import { DateTime } from 'luxon';
+import moment from "moment";
 
 export const languages = {
     en: {nativeName: 'English'},
@@ -32,6 +33,13 @@ i18n
 
 i18n.services.formatter.add('DATE_HUGE', (value, lng, options) => {
     return DateTime.fromJSDate(value).setLocale(lng).toLocaleString(DateTime.DATE_HUGE)
+});
+
+i18n.services.formatter.add('TIME', (value, lng, options) => {
+    if (lng !== "en"){
+        return moment(value, 'HH:mm').locale(lng).format('HH:mm');
+    }
+    return moment(value, 'HH:mm').locale(lng).format('h:mm A');
 });
 
 export default i18n;
